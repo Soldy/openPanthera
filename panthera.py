@@ -7,18 +7,19 @@ migrationTypeList = [
     '15-table-link',
     '20-function',
     '30-procedure',
-    '30-view',
-    '80-seed',
+    '40-view',
+    '50-index',
+    '60-forein',
+    '70-migration',
+    '60-seed',
     '90-event',
     '95-admin'
 
 ]
 
 
-/**
-**/
 def projectInit():
-    os.mkdir('panthera', 0700)
-    for i in migradtionTypeList:
-        os.mkdir('panthera'+i, 0700)
+    os.mkdir('panthera')
+    for i in migrationTypeList:
+        os.mkdir('panthera/'+i)
 
