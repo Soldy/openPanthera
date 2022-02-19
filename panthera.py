@@ -1,25 +1,21 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import os, sys
-
-migrationTypeList = [
-    '10-table',
-    '15-table-link',
-    '20-function',
-    '30-procedure',
-    '40-view',
-    '50-index',
-    '60-forein',
-    '70-migration',
-    '60-seed',
-    '90-event',
-    '95-admin'
-
-]
+import directory as d
 
 
-def projectInit():
-    os.mkdir('panthera')
-    for i in migrationTypeList:
-        os.mkdir('panthera/'+i)
+def menu():
+    print('di Init Directory')
+    print('dc Check Directory')
+    print('df Fix or Update Directory')
+    print('ch check migration')
+    print('a  auto mode')
+    print('e  exit')
+    while True:
+       shut_the_fuck_up = input(' {OP} >> ')
+       if shut_the_fuck_up == 'e' :
+           quit()
+       if shut_the_fuck_up == 'id' :
+           projectInit()
 
+menu()
