@@ -2,19 +2,20 @@
 import os
 
 
-_migrationTypeList = [
-    '10-table',
-    '15-table-link',
-    '20-function',
-    '30-procedure',
-    '40-view',
-    '50-index',
-    '60-forein',
-    '70-migration',
-    '60-seed',
-    '90-event',
-    '95-admin'
-]
+_migrationTypeList = {
+    '10-table'     :{},
+    '15-table-link':{},
+    '20-function'  :{},
+    '30-procedure' :{},
+    '40-view'      :{},
+    '50-index'     :{},
+    '60-forein'    :{},
+    '70-migration' :{},
+    '80-seed'      :{},
+    '90-event'     :{},
+    '95-admin'     :{}
+}
+
 
 
 def init():
@@ -40,46 +41,69 @@ def fix():
     print('Directory structure is fixed')
 
 def _reader(target):
-    out = []
+    out = {}
     target_path = ('panthera/'+target)
     if os.path.isdir('panthera') == False:
        return print('Directory is missing')
     for i in os.listdir(target_path):
         if os.path.isfile(target_path+i):
            with open(target_path+i) as f:
-               out.appent(f.read())
+               out[i]=str(f.read())
     return out
 
+
+
 def readTable():
-    return _reader(_migrationTypeList[0])
+    name = '10-table'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readTableLink():
-    return _reader(_migrationTypeList[1])
+    name = '15-table-link'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readFunction():
-    return _reader(_migrationTypeList[2])
+    _migrationTypeList['20-function'] = _reader('20-function')
+    return _migrationTypeList['20-function']
 
 def readProcedure():
-    return _reader(_migrationTypeList[3])
+    name = '30-procedure'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readView():
-    return _reader(_migrationTypeList[4])
+    name = '40-view'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readIndex():
-    return _reader(_migrationTypeList[5])
+    name = '50-index'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readForein():
-    return _reader(_migrationTypeList[6])
+    name = '60-forein'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readMigration():
-    return _reader(_migrationTypeList[7])
+    name = '70-migration'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readSeed():
-    return _reader(_migrationtypelist[8])
+    name = '80-seed'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readEvent():
-    return _reader(_migrationtypelist[9])
+    name = '90-event'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
 def readAdmin():
-    return _reader(_migrationtypelist[10])
+    name = '95-admin'
+    _migrationTypeList[name] = _reader(name)
+    return _migrationTypeList[name]
 
