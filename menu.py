@@ -12,10 +12,10 @@ def menu():
     print('a  auto mode')
     print('e  exit')
     while True:
-       shut_the_fuck_up = input(' {OP} >> ')
-       if shut_the_fuck_up == 'e' :
+       command = input(' {OP} >> ')
+       if command == 'e' :
            quit()
-       if shut_the_fuck_up == 'id' :
+       if command == 'id' :
            projectInit()
 
 menu()
