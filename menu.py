@@ -18,6 +18,7 @@ def menuDo():
         quit()
     if command == 'di' :
         d.init()
+        print('directory structure initilazed')
 
 def menu():
     while True:

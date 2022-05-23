@@ -22,7 +22,7 @@ def init():
     if not os.path.exists('panthera'):
         os.mkdir('panthera')
     for i in _migrationTypeList:
-        if not os.path.exists('pantherai/'+i):
+        if not os.path.exists('panthera/'+i):
             os.mkdir('panthera/'+i)
 
 
