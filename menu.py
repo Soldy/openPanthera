@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
 import os, sys
-import directory as d
+import src.directory as d
 
 
 def menuWrite():
+    print('===============================')
     print('di Init Directory')
     print('dc Check Directory')
     print('df Fix or Update Directory')
