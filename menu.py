@@ -4,18 +4,24 @@ import os, sys
 import directory as d
 
 
-def menu():
+def menuWrite():
     print('di Init Directory')
     print('dc Check Directory')
     print('df Fix or Update Directory')
     print('ch check migration')
     print('a  auto mode')
     print('e  exit')
+
+def menuDo():
+    command = input(' {OP} >> ')
+    if command == 'e' :
+        quit()
+    if command == 'di' :
+        d.init()
+
+def menu():
     while True:
-       command = input(' {OP} >> ')
-       if command == 'e' :
-           quit()
-       if command == 'id' :
-           projectInit()
+        menuWrite()
+        menuDo()
 
 menu()
