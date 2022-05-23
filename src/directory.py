@@ -19,9 +19,11 @@ _migrationTypeList = {
 
 
 def init():
-    os.mkdir('panthera')
+    if not os.path.exists('panthera'):
+        os.mkdir('panthera')
     for i in _migrationTypeList:
-        os.mkdir('panthera/'+i)
+        if not os.path.exists('pantherai/'+i):
+            os.mkdir('panthera/'+i)
 
 
 def check():
