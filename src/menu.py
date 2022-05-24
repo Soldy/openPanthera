@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os, sys
-import directory as d
+import openpanthera.directory as d
 
 
 def menuWrite():

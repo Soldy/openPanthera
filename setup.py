@@ -1,14 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as readme:
      long_description = readme.read()
 
+
+
 setup(
     name='openpanthera',
-    version='0.0.1',
-    description='',
+    version='0.0.11',
+    description='simple db importer',
     py_modules=['openpanthera'],
-    package_dir={'':'src'},
+    package_dir={'openpanthera':'src'},
+    packages=['openpanthera'],
     install_requires=[
         "hny-config>=0.0.1"
     ],
