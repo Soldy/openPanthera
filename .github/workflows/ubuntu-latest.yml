@@ -7,8 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: whoami
+      - run: apt search mariadb-server
       - name: mariadb preparatrion
-        run: sudo apt install -y mariadb-server
-      - name: secure install
-        run: mysql_secure_installation
+        run: sudo apt install -y mariadb-server-10.3
+      - name: cleanup
+        run: sudo rm -rf /var/lib/mysql/*
+      - name: fresh db
+        run: sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+      - name: start mariadb
+        run: sudo systemctl start mysqld
+
 
