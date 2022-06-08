@@ -1,0 +1,13 @@
+
+name: mysql test
+
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: mariadb preparatrion
+        run: apt install -y mariadb-server
+      - name: secure install
+        run: mysql_secure_installation
+
