@@ -1,20 +1,35 @@
 
-name: mysql test
+name: ci
+env:
+  MYSQL_DATABASE: test_db
+  MYSQL_USER: test_user
+  MYSQL_PASSWORD: test_password
+  MYSQL_HOST: mariadb_master
 
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  ci:
     runs-on: ubuntu-latest
+    container:
+      image: mariadb:latest
+    services:
+      mariadb-master:
+        image: mariadb:latest
+        env:
+          MARIADB_USER: test_user
+          MARIADB_PASSWORD: test_password
+          MARIADB_ROOT_PASSWORD: test_password
+        ports:
+          - 3306/tcp
+        options: >-
+          --name=mariadb-master
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
     steps:
       - run: whoami
-      - run: apt search mariadb-server
-      - name: mariadb preparatrion
-        run: sudo apt install -y mariadb-server-10.3
-      - name: cleanup
-        run: sudo rm -rf /var/lib/mysql/*
-      - name: fresh db
-        run: sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-      - name: start mariadb
-        run: sudo systemctl start mysqld
-
+      - run: ps ax
+      - run: apt install mariadb-client-10.8
+      - run: echo 'SHOW DATABASES;' |mariadb -h mariadb-master -u root --password=test_password 
 
