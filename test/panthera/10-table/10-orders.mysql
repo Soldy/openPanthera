@@ -1,0 +1,12 @@
+CREATE OR REPLACE TABLE `orders` (
+    `id`        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `user`      INT(10) UNSIGNED NOT NULL,
+    `date`      INT(10) UNSIGNED DEFAULT = 0,
+    `payd`      INT(10) UNSIGNED DEFAULT = 0,
+    `placed`    INT(10) UNSIGNED DEFAULT = 0,
+    `posted`    INT(10) UNSIGNED DEFAULT = 0,
+    `delivered` INT(10) UNSIGNED DEFAULT = 0,
+    `returned`  INT(10) UNSIGNED DEFAULT = 0,
+    `refounded` INT(10) UNSIGNED DEFAULT = 0,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

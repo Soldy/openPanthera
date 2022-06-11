@@ -1,0 +1,7 @@
+CREATE OR REPLACE TABLE `products` (
+    `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` CHAR(70) NOT NULL,
+    `description` TEXT,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

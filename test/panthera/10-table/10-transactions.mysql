@@ -1,0 +1,11 @@
+CREATE OR REPLACE TABLE `transactions` (
+    `id`       INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `user`     INT(10) UNSIGNED NOT NULL,
+    `order`    INT(10) UNSIGNED NOT NULL,
+    `date`     INT(10) UNSIGNED NOT NULL,
+    `currency` INT(10) UNSIGNED NOT NULL,
+    `amount`   INT(10) UNSIGNED NOT NULL,
+    `source`   CHAR(120) NOT NULL,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

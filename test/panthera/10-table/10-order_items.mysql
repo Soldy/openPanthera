@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE `order_items` (
+    `id`        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `user`      INT(10) UNSIGNED NOT NULL,
+    `order`     INT(10) UNSIGNED NOT NULL,
+    `product`   INT(10) UNSIGNED NOT NULL,
+    `count`   INT(10) UNSIGNED NOT NULL,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

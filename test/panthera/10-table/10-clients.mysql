@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE `customers` (
+    `id`         INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `first_name` CHAR(70) NOT NULL,
+    `last_name`  CHAR(70) NOT NULL,
+    `phone`      CHAR(70) NOT NULL,
+    `email`      CHAR(70) NOT NULL,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
