@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os
+import os,pathlib
 
 
 _migrationTypeList = {
@@ -16,15 +16,12 @@ _migrationTypeList = {
     '95-admin'     :{}
 }
 
-
-
 def init():
     if not os.path.exists('panthera'):
         os.mkdir('panthera')
     for i in _migrationTypeList:
         if not os.path.exists('panthera/'+i):
             os.mkdir('panthera/'+i)
-
 
 def check():
     if os.path.isdir('panthera') == False:
@@ -44,16 +41,19 @@ def fix():
 
 def _reader(target):
     out = {}
-    target_path = ('panthera/'+target)
+    target_path = (
+        str(pathlib.Path().absolute())+
+        '/panthera/'+
+        target
+    )
     if os.path.isdir('panthera') == False:
-       return print('Directory is missing')
+       return print('Directory '+target+' is missing')
     for i in os.listdir(target_path):
-        if os.path.isfile(target_path+i):
-           with open(target_path+i) as f:
+        print(i)
+        if os.path.isfile(target_path+'/'+i):
+           with open(target_path+'/'+i) as f:
                out[i]=str(f.read())
     return out
-
-
 
 def readTable():
     name = '10-table'
