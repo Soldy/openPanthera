@@ -49,7 +49,6 @@ def _reader(target:str)->list:
     if os.path.isdir('panthera') == False:
        return print('Directory '+target+' is missing')
     for i in os.listdir(target_path):
-        print(i)
         if os.path.isfile(target_path+'/'+i):
            with open(target_path+'/'+i) as f:
                out[i]=str(f.read())
@@ -57,7 +56,7 @@ def _reader(target:str)->list:
 
 def reader(target:str)->list:
     _migrationTypeList[target] = _reader(target)
-    return _reader(target)
+    return _migrationTypeList[target]
 
 def readTable()->list:
     return readader('10-table')

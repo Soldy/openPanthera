@@ -21,18 +21,18 @@ def menuDo():
     command = input(' {OP} >> ')
     if command == 'e' :
         quit()
-    elif command == 'di' :
+    if command == 'di' :
         d.init()
         print('directory structure initilazed')
-    elif command == 'dc' :
+    if command == 'dc' :
         d.check()
-    elif command == 'bt' :
+    if command == 'bt' :
         d.check()
         m.buildTable()
-    elif command == 'bf' :
+    if command == 'bf' :
         d.check()
         m.buildFunction()
-    elif command == 'mi' :
+    if command == 'mi' :
         m.initMigrationTable()
         print('migration table initalized')
 
