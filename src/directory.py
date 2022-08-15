@@ -23,7 +23,7 @@ def init():
         if not os.path.exists('panthera/'+i):
             os.mkdir('panthera/'+i)
 
-def check():
+def check()->bool:
     if os.path.isdir('panthera') == False:
         return print('Directory is missing')
     for i in _migrationTypeList:
@@ -39,7 +39,7 @@ def fix():
            os.mkdir('panthera/'+i)
     print('Directory structure is fixed')
 
-def _reader(target):
+def _reader(target:str)->list:
     out = {}
     target_path = (
         str(pathlib.Path().absolute())+
@@ -55,57 +55,40 @@ def _reader(target):
                out[i]=str(f.read())
     return out
 
-def readTable():
-    name = '10-table'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def reader(target:str)->list:
+    _migrationTypeList[target] = _reader(target)
+    return _reader(target)
 
-def readTableLink():
-    name = '15-table-link'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readTable()->list:
+    return readader('10-table')
 
-def readFunction():
-    _migrationTypeList['20-function'] = _reader('20-function')
-    return _migrationTypeList['20-function']
+def readTableLink()->list:
+    return readader('15-table-link')
 
-def readProcedure():
-    name = '30-procedure'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readFunction()->list:
+    return readader('20-function')
 
-def readView():
-    name = '40-view'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readProcedure()->list:
+    return readader('30-procedure')
 
-def readIndex():
-    name = '50-index'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readView()->list:
+    return readader('40-view')
 
-def readForein():
-    name = '60-forein'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readIndex()->list:
+    return readader('50-index')
 
-def readMigration():
-    name = '70-migration'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readForein()->list:
+    return readader('60-forein')
 
-def readSeed():
-    name = '80-seed'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readMigration()->list:
+    return readader('70-migration')
 
-def readEvent():
-    name = '90-event'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readSeed()->list:
+    return readader('80-seed')
 
-def readAdmin():
-    name = '95-admin'
-    _migrationTypeList[name] = _reader(name)
-    return _migrationTypeList[name]
+def readEvent()->list:
+    return readader('90-event')
+
+def readAdmin()->list:
+    return readader('95-admin')
 

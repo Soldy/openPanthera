@@ -2,7 +2,7 @@
 
 import os, sys
 import openpanthera.directory as d
-import openpanthera.mariadblib as m
+import mariadblib as m
 
 
 def menuWrite():
@@ -21,18 +21,18 @@ def menuDo():
     command = input(' {OP} >> ')
     if command == 'e' :
         quit()
-    if command == 'di' :
+    elif command == 'di' :
         d.init()
         print('directory structure initilazed')
-    if command == 'dc' :
+    elif command == 'dc' :
         d.check()
-    if command == 'bt' :
+    elif command == 'bt' :
         d.check()
         m.buildTable()
-    if command == 'bf' :
+    elif command == 'bf' :
         d.check()
         m.buildFunction()
-    if command == 'mi' :
+    elif command == 'mi' :
         m.initMigrationTable()
         print('migration table initalized')
 

@@ -12,20 +12,19 @@ _p = display.echo
 
 _config = config.init('mariadb.conf.json')
 
-_migrationTypeList = [
-    '10-table',
-    '15-table-link',
-    '20-function',
-    '30-procedure',
-    '40-view',
-    '50-index',
-    '60-forein',
-    '70-migration',
-    '80-seed',
-    '90-event',
-    '95-admin'
-]
-
+_migrationTypeDict = {
+    'table'       : '10-table',
+    'table-link'  : '15-table-link',
+    'function'    : '20-function',
+    'procedure'   : '30-procedure',
+    'view'        : '40-view',
+    'index'       : '50-index',
+    'forein'      : '60-forein',
+    'migratrtion' : '70-migration',
+    'seed'        : '80-seed',
+    'event'       : '90-event',
+    'admin'       : '95-admin'
+}
 
 _table_query = """
 
@@ -63,117 +62,51 @@ def _sha256(string):
     )
     return crypto.hexdigest()
 
-
-def buildTable():
-    tables = directory.readTable()
-    for table in  tables:
-        if not checkExitBuildScript('table', table, tables[table]):
-            _cur.execute(tables[table])
-            _insertBuildScript('table', table, tables[table])
-            _p('Table "'+str(table)+'" executed')
+def _buildScript(title_:str)->bool:
+    scripts = directory.reader(_migrationTypeDict[title_])
+    utitle = title_[0].upper() + title_[1:]
+    for script in  scripts:
+        if not checkExitBuildScript(title_, script, scripts[script]):
+            _cur.execute(scripts[script])
+            _insertBuildScript(title_, script, scripts[script])
+            _p(utitle+' "'+str(script)+'" executed')
         else:
-            _p('Table "'+str(table)+'" already done')
+            _p(utitle+' "'+str(script)+'" already done')
+    return True
+
+def buildTable()->bool:
+    return  _buildScript('table')
 
 def buildTableLink():
-    links = directory.readTableLink()
-    for link in  links:
-        if not checkExitBuildScript('link', link):
-            _cur.execute(links[link])
-            _insertBuildScript('link', link, links[link])
-            _p('Link "'+str(link)+'" executed')
-        else:
-            _p('Link "'+str(link)+'" already done')
+    return  _buildScript('table-link')
 
 
 def buildFunction():
-    functions = directory.readFunction()
-    for function in  functions:
-        if not checkExitBuildScript('function', function, functions[function]):
-            _cur.execute(functions[function])
-            _insertBuildScript('function', function, functions[function])
-            _p('Function "'+str(function)+'" executed')
-        else:
-            _p('Function "'+str(function)+'" already done')
+    return  _buildScript('function')
 
 def buildProcedure():
-    procedures = directory.readProcedure()
-    for procedure in  procedures:
-        if not checkExitBuildScript('procedure', procedure, procedures[procedure]):
-            _cur.execute(procedures[procedure])
-            _insertBuildScript('procedure', procedure, procedures[procedure])
-            _p('Procedure "'+str(procudere)+'" executed')
-        else:
-            _p('Procedure "'+str(procedure)+'" already done')
+    return  _buildScript('procedure')
 
 def buildView():
-    views = directory.readView()
-    for view in  views:
-        if not checkExitBuildScript('view', view, views[view]):
-            _cur.execute(views[view])
-            _insertBuildScript('view', view, views[view])
-            _p('View "'+str(view)+'" executed')
-        else:
-            _p('View "'+str(view)+'" already done')
+    return  _buildScript('view')
 
 def buildIndex():
-    indexs = directory.readIndex()
-    for index in  indexs:
-        if not checkExitBuildScript('index', index, indexs[index]):
-            _cur.execute(indexs[index])
-            _insertBuildScript('index', index, indexs[index])
-            _p('Index "'+str(index)+'" executed')
-        else:
-            _p('Index "'+str(index)+'" already done')
+    return  _buildScript('index')
 
 def buildForein():
-    foreins = directory.readForein()
-    for forein in  foreins:
-        if not checkExitBuildScript('forein', forein, foreins[forein]):
-            _cur.execute(foreins[forein])
-            _insertBuildScript('forein', forein, foreins[forein])
-            _p('Forein "'+str(forein)+'" executed')
-        else:
-            _p('Forein "'+str(forein)+'" already done')
+    return  _buildScript('forein')
 
 def buildMigration():
-    migrations = directory.readMigration()
-    for migration in  migrations:
-        if not checkExitBuildScript('migration', migration, migrations[migration]):
-            _cur.execute(migrations[migration])
-            _insertBuildScript('migration', migration, migrations[migration])
-            _p('Migration "'+str(migration)+'" executed')
-        else:
-            _p('Migration "'+str(migration)+'" already done')
+    return  _buildScript('migration')
 
 def buildSeed():
-    seeds = directory.readSeed()
-    for seed in  seeds:
-        if not checkExitBuildScript('seed', seed, seeds[seed]):
-            _cur.execute(seeds[seed])
-            _insertBuildScript('seed', seed, seeds[seed])
-            _p('Seed "'+str(seed)+'" executed')
-        else:
-            _p('Seed "'+str(seed)+'" already done')
+    return  _buildScript('migration')
 
 def buildEvent():
-    events = directory.readEvent()
-    for event in  events:
-        if not checkExitBuildScript('event', event, events[event]):
-            _cur.execute(events[event])
-            _insertBuildScript('event', event, events[event])
-            _p('Event "'+str(event)+'" executed')
-        else:
-            _p('Event "'+str(event)+'" already done')
+    return  _buildScript('event')
 
 def buildAdmin():
-    admins = directory.readAdmin()
-    for admin in  admins:
-        if not checkExitBuildScript('admin', admin, admins[admin]):
-            _cur.execute(admins[admin])
-            _insertBuildScript('admin', admin, admins[admin])
-            _p('Admin "'+str(admin)+'" executed')
-        else:
-            _p('Admin "'+str(admin)+'" already done')
+    return  _buildScript('admin')
 
 
 def initMigrationTable():
