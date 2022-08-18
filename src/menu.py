@@ -2,7 +2,7 @@
 
 import os, sys
 import openpanthera.directory as d
-import mariadblib as m
+import openpanthera.mariadblib as m
 
 
 def menuWrite():
@@ -14,31 +14,46 @@ def menuWrite():
     print('mi init migration table')
     print('bt build tables')
     print('bf build functionss')
-    print('a  auto mode')
+    print('h  help')
     print('e  exit')
 
 def menuDo():
     command = input(' {OP} >> ')
-    if command == 'e' :
+    if command == 'e' or command == 'q':
         quit()
-    if command == 'di' :
+    elif command == 'h' or command == '?' or command == 'help':
+        menuWrite()
+    elif command == 'di' :
         d.init()
-        print('directory structure initilazed')
-    if command == 'dc' :
-        d.check()
-    if command == 'bt' :
+        print('Directory structure initilazed')
+    elif command == 'df' :
+        if d.fix() == True:
+            print('Directory structure initilazed')
+        else:
+            print('Directory structure is fixed')
+    elif command == 'dc' :
+       check_result = d.check()
+       if check_result == 0:
+           print('Directory Structure is healthy')
+       elif check_result == 1:
+           print('Directory is missing')
+       else:
+           print('Directory Structure is healthy')
+    elif command == 'bt' :
         d.check()
         m.buildTable()
-    if command == 'bf' :
+    elif command == 'bf' :
         d.check()
         m.buildFunction()
-    if command == 'mi' :
+    elif command == 'mi' :
         m.initMigrationTable()
-        print('migration table initalized')
+        print('Migration table initalized')
+    else :
+        print("Unknown command")
 
 def menu():
+    menuWrite()
     while True:
-        menuWrite()
         menuDo()
 
 menu()

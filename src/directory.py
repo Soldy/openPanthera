@@ -16,28 +16,33 @@ _migrationTypeList = {
     '95-admin'     :{}
 }
 
-def init():
-    if not os.path.exists('panthera'):
-        os.mkdir('panthera')
+def init()->bool:
+    if os.path.exists('panthera'):
+        return False
+    os.mkdir('panthera')
     for i in _migrationTypeList:
-        if not os.path.exists('panthera/'+i):
-            os.mkdir('panthera/'+i)
+        if os.path.exists('panthera/'+i):
+            return False
+        os.mkdir('panthera/'+i)
 
-def check()->bool:
+def check()->int:
     if os.path.isdir('panthera') == False:
-        return print('Directory is missing')
+        return 1
     for i in _migrationTypeList:
         if os.path.isdir('panthera/'+i) == False:
-           return print('Directory is not complet')
-    print('Directory Structure is healthy')
+           return 2
+    return 0
 
-def fix():
+def fix()->bool:
+    result = True
     if os.path.isdir('panthera') == False:
         os.mkdir('panthera')
+        result = False
     for i in _migrationTypeList:
         if os.path.isdir('panthera/'+i) == False:
            os.mkdir('panthera/'+i)
-    print('Directory structure is fixed')
+           result = False
+    return result
 
 def _reader(target:str)->list:
     out = {}
