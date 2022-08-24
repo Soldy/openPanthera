@@ -1,26 +1,14 @@
 #!/usr/bin/python3
 import os,pathlib
+import containers as c
 
 
-_migrationTypeList = {
-    '10-table'     :{},
-    '15-table-link':{},
-    '20-function'  :{},
-    '30-procedure' :{},
-    '40-view'      :{},
-    '50-index'     :{},
-    '60-forein'    :{},
-    '70-migration' :{},
-    '80-seed'      :{},
-    '90-event'     :{},
-    '95-admin'     :{}
-}
 
 def init()->bool:
     if os.path.exists('panthera'):
         return False
     os.mkdir('panthera')
-    for i in _migrationTypeList:
+    for i in c.migrationTypeList:
         if os.path.exists('panthera/'+i):
             return False
         os.mkdir('panthera/'+i)
@@ -28,7 +16,7 @@ def init()->bool:
 def check()->int:
     if os.path.isdir('panthera') == False:
         return 1
-    for i in _migrationTypeList:
+    for i in c.migrationTypeList:
         if os.path.isdir('panthera/'+i) == False:
            return 2
     return 0
@@ -38,7 +26,7 @@ def fix()->bool:
     if os.path.isdir('panthera') == False:
         os.mkdir('panthera')
         result = False
-    for i in _migrationTypeList:
+    for i in c.migrationTypeList:
         if os.path.isdir('panthera/'+i) == False:
            os.mkdir('panthera/'+i)
            result = False
@@ -60,8 +48,8 @@ def _reader(target:str)->list:
     return out
 
 def reader(target:str)->list:
-    _migrationTypeList[target] = _reader(target)
-    return _migrationTypeList[target]
+    c.migrationTypeList[target] = _reader(target)
+    return c.migrationTypeList[target]
 
 def readTable()->list:
     return readader('10-table')

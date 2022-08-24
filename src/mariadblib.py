@@ -1,30 +1,15 @@
 #!/usr/bin/python
+import time, sys, os
 import directory
 import display
 import hashlib
 import mariadb
 import hnyconfig as config
-import time
-import sys
-import os
+import containers as c
 
 _p = display.echo
 
 _config = config.init('mariadb.conf.json')
-
-_migrationTypeDict = {
-    'table'       : '10-table',
-    'table-link'  : '15-table-link',
-    'function'    : '20-function',
-    'procedure'   : '30-procedure',
-    'view'        : '40-view',
-    'index'       : '50-index',
-    'forein'      : '60-forein',
-    'migratrtion' : '70-migration',
-    'seed'        : '80-seed',
-    'event'       : '90-event',
-    'admin'       : '95-admin'
-}
 
 _table_query = """
 
@@ -63,7 +48,7 @@ def _sha256(string):
     return crypto.hexdigest()
 
 def _buildScript(title_:str)->bool:
-    scripts = directory.reader(_migrationTypeDict[title_])
+    scripts = directory.reader(c.migrationTypeDict[title_])
     utitle = title_[0].upper() + title_[1:]
     for script in  scripts:
         if not checkExitBuildScript(title_, script, scripts[script]):
