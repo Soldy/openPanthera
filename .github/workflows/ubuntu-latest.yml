@@ -1,10 +1,10 @@
 
 name: ci
 env:
-  MYSQL_DATABASE: test_db
-  MYSQL_USER: test_user
-  MYSQL_PASSWORD: test_password
-  MYSQL_HOST: mariadb_master
+  MARIADB_DATABASE: test_db
+  MARIADB_USER: test_user
+  MARIADB_PASSWORD: test_password
+  MARIADB_HOST: mariadb_master
 
 on: [push]
 jobs:
@@ -30,6 +30,6 @@ jobs:
     steps:
       - run: whoami
       - run: ps ax
-      - run: apt install mariadb-client-10.8
+      - run: apt install mariadb-client
       - run: echo 'SHOW DATABASES;' |mariadb -h mariadb-master -u root --password=test_password 
 
