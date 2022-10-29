@@ -5,9 +5,9 @@
 Open Panthera is an SQL builder and migration tool. \
 It's a different approach from the most popular ways. \
 The outside client is only allowed to call the inbuild functions and procedures.
-    - That way can be safe like an ORM.
-    - But unlike an ORM not stacked with one programing language.
-    - This way has some performance benefits as well.
+ - That way can be safe like an ORM.
+ - But unlike an ORM not stacked with one programing language.
+ - This way has some performance benefits as well.
 Panthera is not new. Not a revolution. \
 That solution is popular in banks and mission-critical systems. But most of the similar tools are the close source. 
 
