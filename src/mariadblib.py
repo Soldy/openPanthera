@@ -79,7 +79,7 @@ def buildIndex():
     return  _buildScript('index')
 
 def buildForein():
-    return  _buildScript('forein')
+    return  _buildScript('foreign')
 
 def buildMigration():
     return  _buildScript('migration')

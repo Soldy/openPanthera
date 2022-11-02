@@ -34,10 +34,11 @@ def fix()->bool:
 
 def _reader(target:str)->list:
     out = {}
+    target_dict = c.migrationTypeDict[target]
     target_path = (
         str(pathlib.Path().absolute())+
         '/panthera/'+
-        target
+        target_dict
     )
     if os.path.isdir('panthera') == False:
        return print('Directory '+target+' is missing')
@@ -52,35 +53,35 @@ def reader(target:str)->list:
     return c.migrationTypeList[target]
 
 def readTable()->list:
-    return readader('10-table')
+    return readader('table')
 
 def readTableLink()->list:
-    return readader('15-table-link')
+    return readader('table-link')
 
 def readFunction()->list:
-    return readader('20-function')
+    return readader('function')
 
 def readProcedure()->list:
-    return readader('30-procedure')
+    return readader('procedure')
 
 def readView()->list:
-    return readader('40-view')
+    return readader('view')
 
 def readIndex()->list:
-    return readader('50-index')
+    return readader('index')
 
 def readForein()->list:
-    return readader('60-forein')
+    return readader('foreign')
 
 def readMigration()->list:
-    return readader('70-migration')
+    return readader('migration')
 
 def readSeed()->list:
-    return readader('80-seed')
+    return readader('seed')
 
 def readEvent()->list:
-    return readader('90-event')
+    return readader('event')
 
 def readAdmin()->list:
-    return readader('95-admin')
+    return readader('admin')
 
