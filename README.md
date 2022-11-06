@@ -7,9 +7,9 @@ Panthera is not new. Not a revolution. \
 That solution is popular in banks and mission-critical systems. But most of the similar tools are the close source. \
 The primary logic is simple: The outside client only calls the inbuild functions and procedures. So the system SQL injection prof and easily portable to other technologies. \
 The benefits:
-    1. Can be safe like an ORM.
-    1. Unlike an ORM not stacked with one programing language.
-    1. Panthera logic has some performance benefits as well.
+   1. Can be safe like an ORM.
+   2. Unlike an ORM not stacked with one programing language.
+   3. Panthera logic has some performance benefits as well.
 
 
 
