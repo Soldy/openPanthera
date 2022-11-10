@@ -85,3 +85,5 @@ def readEvent()->list:
 def readAdmin()->list:
     return readader('admin')
 
+def readDestroy()->list:
+    return readader('destroy')

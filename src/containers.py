@@ -9,7 +9,8 @@ migrationTypeDict = {
     'migratrtion' : '70-migration',
     'seed'        : '80-seed',
     'event'       : '90-event',
-    'admin'       : '95-admin'
+    'admin'       : '95-admin',
+    'destroy'     : 'xx-destroy'
 }
 
 migrationTypeList = {
@@ -23,6 +24,7 @@ migrationTypeList = {
     '70-migration' :{},
     '80-seed'      :{},
     '90-event'     :{},
-    '95-admin'     :{}
+    '95-admin'     :{},
+    'xx-destroy'   :{}
 }
 

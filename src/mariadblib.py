@@ -16,6 +16,7 @@ _table_query = """
 CREATE TABLE IF NOT EXISTS panthera_migration (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     migration INT DEFAULT 0,
+    destroyed INT DEFAULT 0,
     type VARCHAR(64) NOT NULL,
     file VARCHAR(256) NOT NULL,
     hash VARCHAR(512),
@@ -48,10 +49,11 @@ def _sha256(string):
     return crypto.hexdigest()
 
 def _buildScript(title_:str)->bool:
-    scripts = directory.reader(c.migrationTypeDict[title_])
+    scripts = directory.reader(title_)
     utitle = title_[0].upper() + title_[1:]
     for script in  scripts:
         if not checkExitBuildScript(title_, script, scripts[script]):
+            _p(utitle+' "'+str(script)+'" executing')
             _cur.execute(scripts[script])
             _insertBuildScript(title_, script, scripts[script])
             _p(utitle+' "'+str(script)+'" executed')
@@ -78,7 +80,7 @@ def buildView():
 def buildIndex():
     return  _buildScript('index')
 
-def buildForein():
+def buildForeign():
     return  _buildScript('foreign')
 
 def buildMigration():
@@ -93,6 +95,9 @@ def buildEvent():
 def buildAdmin():
     return  _buildScript('admin')
 
+def destroy():
+    destroyScript()
+    return  _buildScript('destroy')
 
 def initMigrationTable():
     _cur.execute(_table_query)
@@ -111,7 +116,7 @@ def _insertBuildScript(type_, file_name_, file_):
 
 def checkExitBuildScript(type_, file_name_, file_):
     _cur.execute(
-         "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=?",
+         "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
          (
             type_,
             file_name_,
@@ -122,18 +127,16 @@ def checkExitBuildScript(type_, file_name_, file_):
         return True
     return False
 
-def checkBuildScript(type_, file_name_, file_):
+
+def destroyScript():
     _cur.execute(
-         "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=?",
-         type_,
-         file_name_,
-         _sha512(file_)
-
+         "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
+         (
+             int( time.time() ),
+             0
+         )
     )
-    for date in _cur:
-        return True
-    return False
-
+    _conn.commit()
 
 #def build():
 #

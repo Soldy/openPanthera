@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import os, sys
-import openpanthera.directory as d
-import openpanthera.mariadblib as m
+import directory as d
+import mariadblib as m
 
 
 def menuWrite():
@@ -13,7 +13,9 @@ def menuWrite():
     print('ch check migration')
     print('mi init migration table')
     print('bt build tables')
-    print('bf build functionss')
+    print('bf build functions')
+    print('bp build procedires')
+    print('xx destroy att tables')
     print('h  help')
     print('e  exit')
 
@@ -45,6 +47,12 @@ def menuDo():
     elif command == 'bf' :
         d.check()
         m.buildFunction()
+    elif command == 'bp' :
+        d.check()
+        m.buildProcedure()
+    elif command == 'xx' :
+        d.check()
+        m.destroy()
     elif command == 'mi' :
         m.initMigrationTable()
         print('Migration table initalized')
