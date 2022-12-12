@@ -13,8 +13,10 @@ def menuWrite():
     print('ch check migration')
     print('mi init migration table')
     print('bt build tables')
+    print('bl build link tables')
     print('bf build functions')
-    print('bp build procedires')
+    print('bp build procedures')
+    print('bv build views')
     print('xx destroy att tables')
     print('h  help')
     print('e  exit')
@@ -44,12 +46,18 @@ def menuDo():
     elif command == 'bt' :
         d.check()
         m.buildTable()
+    elif command == 'bl' :
+        d.check()
+        m.buildTableLink()
     elif command == 'bf' :
         d.check()
         m.buildFunction()
     elif command == 'bp' :
         d.check()
         m.buildProcedure()
+    elif command == 'bv' :
+        d.check()
+        m.buildView()
     elif command == 'xx' :
         d.check()
         m.destroy()
