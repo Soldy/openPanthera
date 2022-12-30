@@ -3,9 +3,12 @@
 import os, sys
 import directory as d
 import mariadblib as m
+import hnyconfig as config
 
 
 def menuWrite():
+    print('===============================')
+    print(config.get('name'))
     print('===============================')
     print('di Init Directory')
     print('dc Check Directory')
