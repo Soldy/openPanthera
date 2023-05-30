@@ -13,7 +13,8 @@ setup(
     package_dir={'openpanthera':'src'},
     packages=['openpanthera'],
     install_requires=[
-        "hny-config>=0.0.1"
+        "hny-config>=0.0.1",
+        "mariadb",
     ],
     extras_require={
         "dev":[
