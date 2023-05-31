@@ -7,4 +7,5 @@ import mariadblib as m
 import hnyconfig as config
 
 
+m.initMigrationTable()
 m.buildTable()
