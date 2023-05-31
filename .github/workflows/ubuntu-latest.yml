@@ -50,7 +50,7 @@ jobs:
       - run: cat /etc/apt/sources.list
       - run: ls /etc/apt/sources.list.d/
       - run: echo 'SHOW DATABASES;' |mariadb -h mariadb-master -u root --password=test_password 
-      - run: echo 'CREATE DATABASE test;' |mariadb -h mariadb-master -u root --password=test_password 
+      - run: echo 'CREATE DATABASE `panthera_test`;' |mariadb -h mariadb-master -u root --password=test_password 
       - run: echo 'SHOW DATABASES;' |mariadb -h mariadb-master -u root --password=test_password 
       - run: ls
       - run: python -m pip install --upgrade pip

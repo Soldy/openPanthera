@@ -4,6 +4,6 @@
    "password" :  "test_password",
    "host"     :  "mariadb-master",
    "port"     :  "3306",
-   "database" :  "test"
+   "database" :  "panthera_test"
 
 }
