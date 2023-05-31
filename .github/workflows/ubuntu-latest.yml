@@ -41,12 +41,19 @@ jobs:
       - run: whoami
       - run: ps ax
       - run: pwd
+      - run: apt update
+      - run: apt upgrade -y
       - run: apt install mariadb-client
+      - run: apt install libmariadb-dev -y
+      - run: ls /etc/apt/
+      - run: cat /etc/apt/sources.list
+      - run: ls /etc/apt/sources.list.d/
       - run: echo 'SHOW DATABASES;' |mariadb -h mariadb-master -u root --password=test_password 
       - run: echo 'CREATE DATABASE test;' |mariadb -h mariadb-master -u root --password=test_password 
       - run: echo 'SHOW DATABASES;' |mariadb -h mariadb-master -u root --password=test_password 
       - run: ls
       - run: python -m pip install --upgrade pip
+      - run: apt-get install -y libmariadb-dev
       - run: pip install -e .
       - run: cd test ; python3 test.py 
 
