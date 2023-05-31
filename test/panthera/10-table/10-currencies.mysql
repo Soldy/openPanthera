@@ -1,0 +1,6 @@
+CREATE OR REPLACE TABLE `currencies` (
+    `id`        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `ISO_4217`  CHAR(3) NOT NULL,
+    KEY `index` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
