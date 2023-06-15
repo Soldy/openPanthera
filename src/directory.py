@@ -51,39 +51,3 @@ def _reader(target:str)->list:
 def reader(target:str)->list:
     c.migrationTypeList[target] = _reader(target)
     return c.migrationTypeList[target]
-
-def readTable()->list:
-    return readader('table')
-
-def readTableLink()->list:
-    return readader('table-link')
-
-def readFunction()->list:
-    return readader('function')
-
-def readProcedure()->list:
-    return readader('procedure')
-
-def readView()->list:
-    return readader('view')
-
-def readIndex()->list:
-    return readader('index')
-
-def readForein()->list:
-    return readader('foreign')
-
-def readMigration()->list:
-    return readader('migration')
-
-def readSeed()->list:
-    return readader('seed')
-
-def readEvent()->list:
-    return readader('event')
-
-def readAdmin()->list:
-    return readader('admin')
-
-def readDestroy()->list:
-    return readader('destroy')
