@@ -61,40 +61,6 @@ def _buildScript(title_:str)->bool:
             _p(utitle+' "'+str(script)+'" already done')
     return True
 
-def buildTable()->bool:
-    return  _buildScript('table')
-
-def buildTableLink():
-    return  _buildScript('table-link')
-
-
-def buildFunction():
-    return  _buildScript('function')
-
-def buildProcedure():
-    return  _buildScript('procedure')
-
-def buildView():
-    return  _buildScript('view')
-
-def buildIndex():
-    return  _buildScript('index')
-
-def buildForeign():
-    return  _buildScript('foreign')
-
-def buildMigration():
-    return  _buildScript('migration')
-
-def buildSeed():
-    return  _buildScript('migration')
-
-def buildEvent():
-    return  _buildScript('event')
-
-def buildAdmin():
-    return  _buildScript('admin')
-
 def destroy():
     destroyScript()
     return  _buildScript('destroy')
@@ -137,21 +103,4 @@ def destroyScript():
          )
     )
     _conn.commit()
-
-#def build():
-#
-#def migration():
-#
-#def migrationTableBuild():
-#
-#def migrationTableRead():
-#
-#def migrationTableUpdate():
-#
-#def seed():
-#
-#def backupImport():
-#
-#def backupExport():
-
 

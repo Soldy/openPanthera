@@ -1,3 +1,8 @@
+"""
+" open panthera name container
+"""
+
+
 migrationTypeDict = {
     'table'       : '10-table',
     'table-link'  : '15-table-link',
