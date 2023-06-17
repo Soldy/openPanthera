@@ -1,18 +1,17 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import time, sys, os
 import directory
 import display
 import hashlib
 import mariadb
-import hnyconfig as config
 import containers as c
 
-_p = display.echo
+_p = {}
+_config = {}
+_inited = False
 
-_config = config.init('mariadb.conf.json')
 
 _table_query = """
-
 CREATE TABLE IF NOT EXISTS panthera_migration (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     migration INT DEFAULT 0,
@@ -23,20 +22,21 @@ CREATE TABLE IF NOT EXISTS panthera_migration (
     date INT UNSIGNED NOT NULL,
     PRIMARY KEY (id)
 );
-
 """
 
-try:
-    _conn = mariadb.connect(
-        user      = config.get('user'),
-        password  = config.get('password'),
-        host      = config.get('host'),
-        port      = int(config.get('port')),
-        database  = config.get('database')
-    )
-except mariadb.Error as e:
-    print(f"MariaDb died in my arm: {e}")
-    sys.exit(1)
+def init(config):
+    _config = config
+    try:
+        _conn = mariadb.connect(
+            user      = config.get('user'),
+            password  = config.get('password'),
+            host      = config.get('host'),
+            port      = int(config.get('port')),
+            database  = config.get('database')
+        )
+    except mariadb.Error as e:
+        print(f"MariaDb died in my arm: {e}")
+        sys.exit(1)
 
 _conn.autocommit = True
 _cur = _conn.cursor()
@@ -61,9 +61,10 @@ def _buildScript(title_:str)->bool:
             _p(utitle+' "'+str(script)+'" already done')
     return True
 
-def destroy():
-    destroyScript()
-    return  _buildScript('destroy')
+def build(name):
+    if name == "destroy":
+        destroyScript()
+    return  _buildScript(name)
 
 def initMigrationTable():
     _cur.execute(_table_query)
@@ -80,8 +81,8 @@ def _insertBuildScript(type_, file_name_, file_):
     )
     _conn.commit() 
 
-def checkExitBuildScript(type_, file_name_, file_):
-    _cur.execute(
+    def checkExitBuildScript(type_, file_name_, file_):
+        _cur.execute(
          "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
          (
             type_,
