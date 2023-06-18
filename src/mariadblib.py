@@ -98,8 +98,7 @@ def _insertBuildScript(type_, file_name_, file_):
 def destroyScript():
     _cur.execute(
          "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
-         (
-             int( time.time() ),
+                      int( time.time() ),
              0
          )
     )
