@@ -9,22 +9,44 @@ import hnyconfig as config
 
 
 def _split(command):
-    return command.solit(" ")
+    if len(command) > 2:
+        return command.split(" ")
+    return command
 
 def _buildShort(command):
-    if command[1] in c.shortTypeDict.values():
-        return m.build(shortTypeDict[command[1]))
+    if command[1] in c.short_types.values():
+        return m.build(short_types[command[1]))
+
+def _directoryShort(command):
+    if command[1] in c.short_types.values():
+        return m.build(short_types[command[1]))
 
 def _shortSimpleResolve(command):
-    if command[0] == "b":
+    if command[0] == 'b':
+        return _buildShort(command)
+    if command[0] == 'd':
         return _buildShort(command)
 
 def commandResolve(command):
-    if len(command) == 2:
-        return _shortSimpleResolve(command)
-    if len(_split(command)) == 2:
-        return _shortSimpleResolve(_split(command))
+    clean_command = _split(command)
+    if len(clean_command) == 2:
+        return _shortSimpleResolve(clean_command)
 
+
+def helpOut():
+    out = ''
+    for command in short_commands.values():
+        for specific in short_specific_commands.values():
+            out += (
+                command+
+                specific+
+                ' '+
+                short_commands[command]
+                ' '+
+                short_specific_commands[specific]
+                '\n'
+            )
+    return out
 
 
 
