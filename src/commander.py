@@ -15,11 +15,11 @@ def _split(command):
 
 def _buildShort(command):
     if command[1] in c.short_types.values():
-        return m.build(short_types[command[1]))
+        return m.build(c.short_types[command[1]])
 
 def _directoryShort(command):
     if command[1] in c.short_types.values():
-        return m.build(short_types[command[1]))
+        return m.build(c.short_types[command[1]])
 
 def _shortSimpleResolve(command):
     if command[0] == 'b':
@@ -35,18 +35,15 @@ def commandResolve(command):
 
 def helpOut():
     out = ''
-    for command in short_commands.values():
-        for specific in short_specific_commands.values():
+    for command in c.short_commands.keys():
+        for specific in c.short_specific_commands[command].keys():
             out += (
                 command+
                 specific+
                 ' '+
-                short_commands[command]
+                c.short_commands[command]+
                 ' '+
-                short_specific_commands[specific]
+                c.short_specific_commands[command][specific]+
                 '\n'
             )
     return out
-
-
-

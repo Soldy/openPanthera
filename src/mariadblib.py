@@ -9,7 +9,8 @@ import containers as c
 _p = {}
 _config = {}
 _inited = False
-
+_conn = ''
+_cur = ''
 
 _table_query = """
 CREATE TABLE IF NOT EXISTS panthera_migration (
@@ -37,9 +38,8 @@ def init(config):
     except mariadb.Error as e:
         print(f"MariaDb died in my arm: {e}")
         sys.exit(1)
-
-_conn.autocommit = True
-_cur = _conn.cursor()
+    _conn.autocommit = True
+    _cur = _conn.cursor()
 
 def _sha256(string):
     crypto = hashlib.new('sha256')
@@ -98,7 +98,8 @@ def _insertBuildScript(type_, file_name_, file_):
 def destroyScript():
     _cur.execute(
          "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
-                      int( time.time() ),
+         (
+             int( time.time() ),
              0
          )
     )

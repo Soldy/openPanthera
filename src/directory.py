@@ -4,7 +4,7 @@ import containers as c
 
 
 class directoryClass:
-    def _reader(target:str)->list:
+    def _reader(self, target:str)->list:
         out = {}
         target_dict = c.migrationTypeDict[target]
         target_path = (
@@ -19,7 +19,7 @@ class directoryClass:
                with open(target_path+'/'+i) as f:
                    out[i]=str(f.read())
         return out
-    def init()->bool:
+    def init(self)->bool:
         if os.path.exists('panthera'):
             return False
         os.mkdir('panthera')
@@ -27,14 +27,14 @@ class directoryClass:
             if os.path.exists('panthera/'+i):
                 return False
             os.mkdir('panthera/'+i)
-    def check()->int:
+    def check(self)->int:
         if os.path.isdir('panthera') == False:
             return 1
         for i in c.migrationTypeList:
             if os.path.isdir('panthera/'+i) == False:
                return 2
         return 0
-    def fix(self, )->bool:
+    def fix(self)->bool:
         result = True
         if os.path.isdir('panthera') == False:
             os.mkdir('panthera')
@@ -47,6 +47,13 @@ class directoryClass:
     def reader(self, target:str)->list:
         c.migrationTypeList[target] = _reader(target)
         return c.migrationTypeList[target]
-    def resolv(self, command):
+    def resolv(self, command)->any:
+        return self.list[command]()
+    def __init__(self):
+        self.list = {
+            'init' : self.init,
+            'check': self.check,
+            'fix'  : self.fix
+        }
 
 
