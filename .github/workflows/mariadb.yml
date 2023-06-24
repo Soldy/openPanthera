@@ -17,7 +17,7 @@ jobs:
       image: mariadb:10
     services:
       mariadb-master:
-        image: mariadb:latest
+        image: mariadb:lts
         env:
           MARIADB_USER: test_user
           MARIADB_PASSWORD: test_password
