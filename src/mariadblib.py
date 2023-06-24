@@ -1,11 +1,14 @@
 #!/usr/bin/python3
-import time, sys, os
+import os
+import sys
+import time
 import directory
 import display
 import hashlib
 import mariadb
 import containers as c
 
+_directory = directory
 _p = {}
 _config = {}
 _inited = False
@@ -25,8 +28,9 @@ CREATE TABLE IF NOT EXISTS panthera_migration (
 );
 """
 
-def init(config):
+def init(config, directory_):
     _config = config
+    _directory = directory_
     try:
         _conn = mariadb.connect(
             user      = config.get('user'),
@@ -49,7 +53,7 @@ def _sha256(string):
     return crypto.hexdigest()
 
 def _buildScript(title_:str)->bool:
-    scripts = directory.reader(title_)
+    scripts = _directory.reader(title_)
     utitle = title_[0].upper() + title_[1:]
     for script in  scripts:
         if not checkExitBuildScript(title_, script, scripts[script]):
@@ -81,8 +85,8 @@ def _insertBuildScript(type_, file_name_, file_):
     )
     _conn.commit() 
 
-    def checkExitBuildScript(type_, file_name_, file_):
-        _cur.execute(
+def checkExitBuildScript(type_, file_name_, file_):
+    _cur.execute(
          "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
          (
             type_,

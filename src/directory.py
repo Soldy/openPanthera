@@ -2,8 +2,14 @@
 import os
 import pathlib
 import containers as c
+import display as ui
 
-class directoryClass:
+
+def display(ui_):
+    ui = ui_
+
+
+class DirectoryClass:
     def _mainPath(self)->str:
         return (
             str(pathlib.Path().absolute())+
@@ -21,7 +27,7 @@ class directoryClass:
         )
     def _targetCheck(self, target)->bool:
         return os.path.isdir(
-            self._path(target)
+            self._targetPath(target)
         )
     def _fileCheck(self, target, file_name)->bool:
         return os.path.isdir(
@@ -29,7 +35,7 @@ class directoryClass:
             file_name
         )
     def _mkdir(self, target:str):
-        os.mkdir(self._path(target))
+        os.mkdir(self._targetPath(target))
     def _reader(self, target:str)->list:
         out = {}
         target_dict = c.migrationTypeDict[target]
@@ -40,37 +46,37 @@ class directoryClass:
                with open(self._targetPath(target_path)+i) as f:
                    out[i]=str(f.read())
         return out
-    def init(self)->bool:
-        if os.path.exists('panthera'):
-            return False
-        os.mkdir('panthera')
-        for i in c.migrationTypeList:
-            if self._targetCheck(i):
-                return False
-            self._mkdir(i)
-    def check(self)->int:
-        if self._mainCheck() == False:
-            return 1
-        for i in c.migrationTypeList:
-            if self._targetCheck(i) == False:
-               return 2
-        return 0
-    def fix(self)->bool:
-        result = True
-        if self._mainCheck() == False:
-            os.mkdir(self._mainCheck())
-            result = False
+    def init(self)->int:
+        if os.path.exists('panthera') == False:
+            os.mkdir('panthera')
         for i in c.migrationTypeList:
             if self._targetCheck(i) == False:
                self._mkdir(i)
-               result = False
+    def check(self)->int:
+        result = 0
+        if self._mainCheck() == False:
+            ui.log('Main directory is missing')
+            result = 1
+        for i in c.migrationTypeList:
+            if self._targetCheck(i) == False:
+               ui.log('Sub directory '+i+' missing')
+               result = 2
         return result
+    def fix(self)->int:
+        if self._mainCheck() == False:
+            os.mkdir(self._mainCheck())
+            ui.log('Main directory fixxed')
+        for i in c.migrationTypeList:
+            if self._targetCheck(i) == False:
+               self._mkdir(i)
+               ui.log('Sub directory '+i+' fixxed')
     def reader(self, target:str)->list:
         c.migrationTypeList[target] = self._reader(target)
         return c.migrationTypeList[target]
     def resolv(self, command)->any:
         return self.list[command]()
     def __init__(self, path):
+        """ variable defination """
         self._path_plus = path
         self.list = {
             'init' : self.init,

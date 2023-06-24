@@ -72,5 +72,3 @@ migrationTypeList = {
     '95-admin'      :{},
     'xx-destroy'    :{}
 }
-
-
