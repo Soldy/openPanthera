@@ -45,7 +45,7 @@ short_directory_commands = {
     'f' : 'fix',
 }
 
-short_migration_commands = {
+short_migrate_commands = {
    's'  : 'init',
    'i'  : 'import',
    'e'  : 'export',
@@ -55,7 +55,7 @@ short_migration_commands = {
 short_specific_commands = {
    'd' : short_directory_commands,
    'b' : short_types,
-   'm' : short_migration_commands
+   'm' : short_migrate_commands
 }
 
 migrationTypeList = {

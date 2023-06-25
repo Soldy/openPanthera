@@ -13,7 +13,7 @@ _p = {}
 _config = {}
 _inited = False
 _conn = ''
-_cur = ''
+_cur = 'hu'
 
 _table_query = """
 CREATE TABLE IF NOT EXISTS panthera_migration (
@@ -28,23 +28,6 @@ CREATE TABLE IF NOT EXISTS panthera_migration (
 );
 """
 
-def init(config, directory_):
-    _config = config
-    _directory = directory_
-    try:
-        _conn = mariadb.connect(
-            user      = config.get('user'),
-            password  = config.get('password'),
-            host      = config.get('host'),
-            port      = int(config.get('port')),
-            database  = config.get('database')
-        )
-    except mariadb.Error as e:
-        print(f"MariaDb died in my arm: {e}")
-        sys.exit(1)
-    _conn.autocommit = True
-    _cur = _conn.cursor()
-
 def _sha256(string):
     crypto = hashlib.new('sha256')
     crypto.update(
@@ -52,60 +35,77 @@ def _sha256(string):
     )
     return crypto.hexdigest()
 
-def _buildScript(title_:str)->bool:
-    scripts = _directory.reader(title_)
-    utitle = title_[0].upper() + title_[1:]
-    for script in  scripts:
-        if not checkExitBuildScript(title_, script, scripts[script]):
-            _p(utitle+' "'+str(script)+'" executing')
-            _cur.execute(scripts[script])
-            _insertBuildScript(title_, script, scripts[script])
-            _p(utitle+' "'+str(script)+'" executed')
-        else:
-            _p(utitle+' "'+str(script)+'" already done')
-    return True
 
-def build(name):
-    if name == "destroy":
-        destroyScript()
-    return  _buildScript(name)
-
-def initMigrationTable():
-    _cur.execute(_table_query)
-
-def _insertBuildScript(type_, file_name_, file_):
-    _cur.execute(
-        "INSERT INTO panthera_migration (type, file, hash, date) VALUES (?, ?, ?, ?)", 
-        (
-           type_,
-           file_name_,
-           _sha256(file_),
-           round(time.time())
-        )
-    )
-    _conn.commit() 
-
-def checkExitBuildScript(type_, file_name_, file_):
-    _cur.execute(
-         "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
-         (
-            type_,
-            file_name_,
-           _sha256(file_)
-         )
-    )
-    for date in _cur:
+class MariaDbClass:
+    def __init__(self, config, directory_):
+        self.config = config
+        self._directory = directory_
+        try:
+            self._conn = mariadb.connect(
+                user      = config.get('user'),
+                password  = config.get('password'),
+                host      = config.get('host'),
+                port      = int(config.get('port')),
+                database  = config.get('database')
+            )
+        except mariadb.Error as e:
+            print(f"MariaDb died in my arm: {e}")
+            sys.exit(1)
+        self._conn.autocommit = True
+        self._cur = self._conn.cursor()
+    def _buildScript(self, title_:str)->bool:
+        scripts = self._directory.reader(title_)
+        utitle = title_[0].upper() + title_[1:]
+        for script in  scripts:
+            if not self.checkExitBuildScript(title_, script, scripts[script]):
+                self._p(utitle+' "'+str(script)+'" executing')
+                self._cur.execute(scripts[script])
+                self._insertBuildScript(title_, script, scripts[script])
+                self._p(utitle+' "'+str(script)+'" executed')
+            else:
+                self._p(utitle+' "'+str(script)+'" already done')
         return True
-    return False
+
+    def build(self, name):
+        if name == "destroy":
+            self.destroyScript()
+        return self._buildScript(name)
+
+    def initMigrationTable(self):
+        self._cur.execute(_table_query)
+
+    def _insertBuildScript(self, type_, file_name_, file_):
+        self._cur.execute(
+            "INSERT INTO panthera_migration (type, file, hash, date) VALUES (?, ?, ?, ?)", 
+            (
+               type_,
+               file_name_,
+               _sha256(file_),
+               round(time.time())
+            )
+        )
+        self._conn.commit() 
+    def checkExitBuildScript(self, type_, file_name_, file_):
+        self._cur.execute(
+             "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
+             (
+                type_,
+                file_name_,
+               _sha256(file_)
+             )
+        )
+        for date in self._cur:
+            return True
+        return False
 
 
-def destroyScript():
-    _cur.execute(
-         "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
-         (
-             int( time.time() ),
-             0
-         )
-    )
-    _conn.commit()
+    def destroyScript():
+        self._cur.execute(
+             "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
+             (
+                 int( time.time() ),
+                 0
+             )
+        )
+        self.conn.commit()
 

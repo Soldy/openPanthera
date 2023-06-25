@@ -75,7 +75,7 @@ class DirectoryClass:
         return c.migrationTypeList[target]
     def resolv(self, command)->any:
         return self.list[command]()
-    def __init__(self, path):
+    def __init__(self, path:str):
         """ variable defination """
         self._path_plus = path
         self.list = {
