@@ -1,8 +1,8 @@
 
 name: ci
 env:
-  MARIADB_DATABASE: test_db
-  MARIADB_USER: test_user
+  MARIADB_DATABASE: panthera_test
+  MARIADB_USER: root
   MARIADB_PASSWORD: test_password
   MARIADB_HOST: mariadb_master
   PIP_ROOT_USER_ACTION: ignore
@@ -27,7 +27,7 @@ jobs:
         ports:
           - 3306/tcp
         options: >-
-          --name=mariadb-master
+          --name=mariadb_master
           --health-cmd="mysqladmin ping"
           --health-interval=10s
           --health-timeout=5s
@@ -62,4 +62,4 @@ jobs:
       - run: cd test ; python3 ../src/cli.py dc
       - run: cd test ; python3 ../src/cli.py ms
       - run: cd test ; python3 ../src/cli.py bt
-      - run: echo 'USE test_db; SHOW TABLES;' |mariadb -h mariadb-master -u root --password=test_password 
+      - run: echo 'USE panthera_test; SHOW TABLES;' |mariadb -h $MARIADB_HOST -u root --password=$MARIADB_PASSWORD
