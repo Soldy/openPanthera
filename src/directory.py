@@ -19,7 +19,8 @@ class DirectoryClass:
     def _targetPath(self, target:str)->str:
         return (
             self._mainPath()+
-            target
+            target+
+            '/'
         )
     def _mainCheck(self)->bool:
         return os.path.isdir(
@@ -30,21 +31,23 @@ class DirectoryClass:
             self._targetPath(target)
         )
     def _fileCheck(self, target, file_name)->bool:
-        return os.path.isdir(
-            self._path(target)+
+        return os.path.isfile(
+            self._targetPath(target)+
             file_name
         )
     def _mkdir(self, target:str):
         os.mkdir(self._targetPath(target))
     def _reader(self, target:str)->list:
         out = {}
-        target_dict = c.migrationTypeDict[target]
+        target_dict = c.migration_type_dict[target]
         if self._targetCheck(target_dict) == False:
            return print('Directory '+target+' is missing')
-        for i in os.listdir():
+        for i in os.listdir(self._targetPath(target_dict)):
             if self._fileCheck(target_dict, i):
-               with open(self._targetPath(target_path)+i) as f:
+               with open(self._targetPath(target_dict)+i) as f:
                    out[i]=str(f.read())
+            else:
+               print(i)
         return out
     def init(self)->int:
         if os.path.exists('panthera') == False:

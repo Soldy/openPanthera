@@ -9,7 +9,6 @@ import mariadb
 import containers as c
 
 _directory = directory
-_p = {}
 _config = {}
 _inited = False
 _conn = ''
@@ -37,8 +36,9 @@ def _sha256(string):
 
 
 class MariaDbClass:
-    def __init__(self, config, directory_):
-        self.config = config
+    def __init__(self, ui, config, directory_):
+        self._p = ui.log
+        self._config = config
         self._directory = directory_
         try:
             self._conn = mariadb.connect(

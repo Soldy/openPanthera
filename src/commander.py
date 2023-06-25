@@ -16,7 +16,7 @@ d.display(ui)
 defaultDirectory = d.DirectoryClass('')
 
 e.display(ui)
-defaultMariaDb = m.MariaDbClass(config, defaultDirectory)
+defaultMariaDb = m.MariaDbClass(ui, config, defaultDirectory)
 defaultMigrate = e.MigrateClass(defaultMariaDb, defaultDirectory)
 
 _resolvers = {
