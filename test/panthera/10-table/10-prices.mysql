@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE `customers` (
+CREATE OR REPLACE TABLE `prices` (
     `id`         INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `product`    INT(10) UNSIGNED NOT NULL,
     `count`      INT(10) UNSIGNED NOT NULL,

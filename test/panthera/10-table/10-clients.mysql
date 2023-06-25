@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE `customers` (
+CREATE OR REPLACE TABLE `clients` (
     `id`         INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `first_name` CHAR(70) NOT NULL,
     `last_name`  CHAR(70) NOT NULL,
