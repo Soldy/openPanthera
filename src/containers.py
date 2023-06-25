@@ -3,7 +3,7 @@
 """
 
 
-migrationTypeDict = {
+migration_type_dict = {
     'table'       : '10-table',
     'table-link'  : '15-table-link',
     'function'    : '20-function',

@@ -53,7 +53,7 @@ class MariaDbClass:
             sys.exit(1)
         self._conn.autocommit = True
         self._cur = self._conn.cursor()
-    def _buildScript(self, title_:str)->bool:
+    def _buildScript(self, title_:str)->int:
         scripts = self._directory.reader(title_)
         utitle = title_[0].upper() + title_[1:]
         for script in  scripts:
@@ -64,17 +64,18 @@ class MariaDbClass:
                 self._p(utitle+' "'+str(script)+'" executed')
             else:
                 self._p(utitle+' "'+str(script)+'" already done')
-        return True
+        return 0
 
-    def build(self, name):
+    def build(self, name:str)->int:
         if name == "destroy":
-            self.destroyScript()
+            return self.destroyScript()
         return self._buildScript(name)
 
-    def initMigrationTable(self):
+    def initMigrationTable(self)->int:
         self._cur.execute(_table_query)
+        return 0
 
-    def _insertBuildScript(self, type_, file_name_, file_):
+    def _insertBuildScript(self, type_:str, file_name_:str, file_:str)->int:
         self._cur.execute(
             "INSERT INTO panthera_migration (type, file, hash, date) VALUES (?, ?, ?, ?)", 
             (
@@ -85,6 +86,7 @@ class MariaDbClass:
             )
         )
         self._conn.commit() 
+        return 0
     def checkExitBuildScript(self, type_, file_name_, file_):
         self._cur.execute(
              "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
@@ -108,4 +110,5 @@ class MariaDbClass:
              )
         )
         self.conn.commit()
+        return 0
 

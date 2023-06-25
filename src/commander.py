@@ -46,13 +46,13 @@ def _split(command):
 
 def resolve(command):
     if command == 'h' or command == "help":
-        return helpOut()
+        return help()
     clean_command = _split(command)
     if len(clean_command) == 2:
         return _shortResolve(clean_command)
 
 
-def helpOut():
+def help()->int:
     out = ''
     for command in c.short_commands.keys():
         for specific in c.short_specific_commands[command].keys():
@@ -65,4 +65,5 @@ def helpOut():
                 c.short_specific_commands[command][specific]+
                 '\n'
             )
-    return out
+    ui.log(out)
+    return 0
