@@ -3,26 +3,18 @@ import os
 import sys
 import time
 import display as ui
-import directory as d
-import mariadblib as m
-import containers as c
 import migrate as e
 import hnyconfig as config
-
+import VitrualSchema from schema as virtual
 
 config.init('mariadb.conf.json')
 
-d.display(ui)
-defaultDirectory = d.DirectoryClass('')
-
-e.display(ui)
-defaultMariaDb = m.MariaDbClass(ui, config, defaultDirectory)
-defaultMigrate = e.MigrateClass(defaultMariaDb, defaultDirectory)
+shcema = virtual('', ui)
 
 _resolvers = {
-    'migrate'  : defaultMigrate.resolv,
-    'build'    : defaultMariaDb.build,
-    'directory': defaultDirectory.resolv
+    'migrate'  : schema.migrate.resolv,
+    'build'    : schema.mariadb.build,
+    'directory': schema.directory.resolv
 }
 
 _shorters = short_specific_commands = {
@@ -30,7 +22,6 @@ _shorters = short_specific_commands = {
     'build'    : c.short_types,
     'directory': c.short_directory_commands
 }
-
 
 def _shortResolve(command):
     if command[0] in c.short_commands.keys():
@@ -50,7 +41,6 @@ def resolve(command):
     clean_command = _split(command)
     if len(clean_command) == 2:
         return _shortResolve(clean_command)
-
 
 def help()->int:
     out = ''

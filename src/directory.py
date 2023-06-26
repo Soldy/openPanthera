@@ -2,11 +2,8 @@
 import os
 import pathlib
 import containers as c
-import display as ui
 
 
-def display(ui_):
-    ui = ui_
 
 
 class DirectoryClass:
@@ -58,28 +55,29 @@ class DirectoryClass:
     def check(self)->int:
         result = 0
         if self._mainCheck() == False:
-            ui.log('Main directory is missing')
+            self._ui.log('Main directory is missing')
             result = 1
         for i in c.migrationTypeList:
             if self._targetCheck(i) == False:
-               ui.log('Sub directory '+i+' missing')
+               self._ui.log('Sub directory '+i+' missing')
                result = 2
         return result
     def fix(self)->int:
         if self._mainCheck() == False:
             os.mkdir(self._mainCheck())
-            ui.log('Main directory fixxed')
+            self._ui.log('Main directory fixxed')
         for i in c.migrationTypeList:
             if self._targetCheck(i) == False:
                self._mkdir(i)
-               ui.log('Sub directory '+i+' fixxed')
+               self._ui.log('Sub directory '+i+' fixxed')
     def reader(self, target:str)->list:
         c.migrationTypeList[target] = self._reader(target)
         return c.migrationTypeList[target]
     def resolv(self, command)->any:
         return self.list[command]()
-    def __init__(self, path:str):
+    def __init__(self, path:str, ui_):
         """ variable defination """
+        self._ui = ui_
         self._path_plus = path
         self.list = {
             'init' : self.init,
