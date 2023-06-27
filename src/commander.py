@@ -2,6 +2,7 @@
 import os
 import sys
 import time
+import containers as c
 import display as ui
 import migrate as e
 import hnyconfig as config
@@ -11,24 +12,14 @@ config.init('mariadb.conf.json')
 
 shcema = virtual('', ui)
 
-_resolvers = {
-    'migrate'  : schema.migrate.resolv,
-    'build'    : schema.mariadb.build,
-    'directory': schema.directory.resolv
-}
-
-_shorters = short_specific_commands = {
-    'migrate'  : c.short_migrate_commands,
-    'build'    : c.short_types,
-    'directory': c.short_directory_commands
-}
+_shorters = c.short_specific_commands 
 
 def _shortResolve(command):
     if command[0] in c.short_commands.keys():
         main = c.short_commands[command[0]]
         if command[1] in _shorters[main].keys():
            sub = _shorters[main][command[1]]
-           return _resolvers[main](sub)
+           return _schema.resolv(main, sub)
 
 def _split(command):
     if len(command) > 2:
