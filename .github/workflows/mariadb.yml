@@ -63,3 +63,4 @@ jobs:
       - run: cd test ; python3 ../src/cli.py ms
       - run: cd test ; python3 ../src/cli.py bt
       - run: echo 'USE panthera_test; SHOW TABLES;' |mariadb -h $MARIADB_HOST -u root --password=$MARIADB_PASSWORD
+      - run: cd test ; python3 ../src/cli.py xx
