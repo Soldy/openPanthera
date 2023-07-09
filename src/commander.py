@@ -6,11 +6,11 @@ import containers as c
 import display as ui
 import migrate as e
 import hnyconfig as config
-import VitrualSchema from schema as virtual
+import schema as s
 
 config.init('mariadb.conf.json')
 
-shcema = virtual('', ui)
+shcema = s.VirtualSchema('', ui)
 
 _shorters = c.short_specific_commands 
 
