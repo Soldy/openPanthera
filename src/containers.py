@@ -53,9 +53,9 @@ short_migrate_commands = {
 }
 
 short_specific_commands = {
-   'd' : short_directory_commands,
-   'b' : short_types,
-   'm' : short_migrate_commands
+   'directory' : short_directory_commands,
+   'build'     : short_types,
+   'migrate'   : short_migrate_commands
 }
 
 migrationTypeList = {

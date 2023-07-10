@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import os
-import pathlib
 import containers as c
 
 
@@ -9,7 +8,7 @@ import containers as c
 class DirectoryClass:
     def _mainPath(self)->str:
         return (
-            str(pathlib.Path().absolute())+
+            str(os.getcwd())+
             self._path_plus+
             '/panthera/'
         )

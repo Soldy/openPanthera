@@ -4,13 +4,12 @@ import sys
 import time
 import containers as c
 import display as ui
-import migrate as e
 import hnyconfig as config
 import schema as s
 
 config.init('mariadb.conf.json')
 
-shcema = s.VirtualSchema('', ui)
+_schema = s.VirtualSchema('', ui)
 
 _shorters = c.short_specific_commands 
 
