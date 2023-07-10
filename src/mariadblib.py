@@ -101,7 +101,7 @@ class MariaDbClass:
         return False
 
 
-    def destroyScript():
+    def destroyScript(self):
         self._cur.execute(
              "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
              (
@@ -109,6 +109,6 @@ class MariaDbClass:
                  0
              )
         )
-        self.conn.commit()
+        self._conn.commit()
         return 0
 

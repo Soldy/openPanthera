@@ -29,6 +29,8 @@ def resolve(command):
     if command == 'h' or command == "help":
         return help()
     clean_command = _split(command)
+    if clean_command[0] == 'x' and clean_command[1] == 'x':
+        clean_command = 'bx'
     if len(clean_command) == 2:
         return _shortResolve(clean_command)
 
@@ -40,8 +42,8 @@ def help()->int:
                 command+
                 specific+
                 ' '+
-                command+
-                '] '+
+                c.short_command[command]+
+                ' '+
                 c.short_specific_commands[c.short_commands[command]][specific]+
                 '\n'
             )
