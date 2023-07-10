@@ -35,14 +35,14 @@ def resolve(command):
 def help()->int:
     out = ''
     for command in c.short_commands.keys():
-        for specific in c.short_specific_commands[command].keys():
+        for specific in _shorters[c.short_commands[command]].keys():
             out += (
                 command+
                 specific+
                 ' '+
-                c.short_commands[command]+
-                ' '+
-                c.short_specific_commands[command][specific]+
+                command+
+                '] '+
+                c.short_specific_commands[c.short_commands[command]][specific]+
                 '\n'
             )
     ui.log(out)
