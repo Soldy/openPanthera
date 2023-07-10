@@ -1,2 +1,1 @@
-
 DROP TABLES IF EXISTS `currencies`;
