@@ -42,7 +42,7 @@ def help()->int:
                 command+
                 specific+
                 ' '+
-                c.short_command[command]+
+                c.short_commands[command]+
                 ' '+
                 c.short_specific_commands[c.short_commands[command]][specific]+
                 '\n'

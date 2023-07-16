@@ -57,18 +57,33 @@ class MariaDbClass:
         scripts = self._directory.reader(title_)
         utitle = title_[0].upper() + title_[1:]
         for script in  scripts:
-            if not self.checkExitBuildScript(title_, script, scripts[script]):
+            block_ = True
+            if title_ == 'destroy':
+               block_ = False
+            else:
+               block_ = self.checkExitBuildScript(
+                   title_,
+                   script,
+                   scripts[script]
+                )
+            if not block_ :
                 self._p(utitle+' "'+str(script)+'" executing')
                 self._cur.execute(scripts[script])
-                self._insertBuildScript(title_, script, scripts[script])
+                if title_ != 'destroy':
+                    self._insertBuildScript(
+                        title_,
+                        script,
+                        scripts[script]
+                    )
                 self._p(utitle+' "'+str(script)+'" executed')
             else:
                 self._p(utitle+' "'+str(script)+'" already done')
         return 0
 
     def build(self, name:str)->int:
+        print(name)
         if name == "destroy":
-            return self.destroyScript()
+            self.destroyScript()
         return self._buildScript(name)
 
     def initMigrationTable(self)->int:
