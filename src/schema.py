@@ -2,6 +2,16 @@ import directory as d
 import mariadblib as m
 import migrate as e
 import hnyconfig as config
+import modules as m
+
+
+def schemas(ui)->list:
+    schema_list = []
+    for schema_name in m.read():
+        schema_list = VirtualSchema(
+            schema_name
+            ui
+        )
 
 class VirtualSchema:
     def resolv(self, main, sub):
