@@ -64,3 +64,5 @@ jobs:
       - run: cd test ; python3 ../src/cli.py bt
       - run: echo 'USE panthera_test; SHOW TABLES;' |mariadb -h $MARIADB_HOST -u root --password=$MARIADB_PASSWORD
       - run: cd test ; python3 ../src/cli.py xx
+      - run: cd test ; git clone https://github.com/Soldy/note_db.git
+      - run: cd test ; git clone https://github.com/Soldy/text_db.git
