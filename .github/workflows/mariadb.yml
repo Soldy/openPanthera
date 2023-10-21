@@ -47,6 +47,7 @@ jobs:
       - run: apt install mariadb-client
       - run: apt install libmariadb-dev -y
       - run: apt install build-essential -y
+      - run: apt install git -y
       - run: ls /etc/apt/
       - run: cat /etc/apt/sources.list
       - run: ls /etc/apt/sources.list.d/
