@@ -1,0 +1,25 @@
+[project]
+name = "openpanthera"
+version= "0.0.12"
+authors = [
+  { name="Soldy", email="4786022+Soldy@users.noreply.github.com" },
+]
+description = "simple db importer"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Operating System :: OS Independent",
+    "Topic :: Utilities"
+]
+dependencies = [
+    "hny-config>=0.0.1",
+    "mariadb",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/Soldy/openPanthera"
+"Bug Tracker" = "https://github.com/Soldy/openPanthera/issues"
