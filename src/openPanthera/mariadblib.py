@@ -2,11 +2,10 @@
 import os
 import sys
 import time
-import directory
-import display
 import hashlib
 import mariadb
-import containers as c
+import openPanthera.directory as directory
+import openPanthera.containers as c
 
 _directory = directory
 _config = {}

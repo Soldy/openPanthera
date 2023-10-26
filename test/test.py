@@ -1,11 +1,12 @@
 import unittest
 import sys
 import os
-#sys.path.append(os.getcwd() + '/..')
-import directory as d
-import mariadblib as m
-import hnyconfig as config
+import pytest
+import openPanthera.lib as l
 
 
-m.initMigrationTable()
-m.buildTable()
+schema = l.schema('')
+def test_init():
+    schema.resolv('init', 'sql')
+def test_createTable():
+    schema.resolv('build', 'table')

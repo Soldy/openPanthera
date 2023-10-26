@@ -1,4 +1,4 @@
-import display as ui
+import openPanthera.display as ui
 
 
 def display(ui_):

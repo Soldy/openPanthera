@@ -6,26 +6,31 @@ import containers as c
 import display as ui
 import hnyconfig as config
 import schema as s
+import modules as m
 
 config.init('mariadb.conf.json')
+schemas_list = m.read()
+
+
 
 _schema = s.VirtualSchema('', ui)
 
-_shorters = c.short_specific_commands 
+_shorters = c.short_specific_commands
 
-def _shortResolve(command):
+
+def _shortResolve(command:str):
     if command[0] in c.short_commands.keys():
         main = c.short_commands[command[0]]
         if command[1] in _shorters[main].keys():
            sub = _shorters[main][command[1]]
            return _schema.resolv(main, sub)
 
-def _split(command):
+def _split(command:str)->list:
     if len(command) > 2:
         return command.split(" ")
     return command
 
-def resolve(command):
+def resolve(command:str):
     if command == 'h' or command == "help":
         return help()
     clean_command = _split(command)
