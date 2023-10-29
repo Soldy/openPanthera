@@ -10,6 +10,8 @@ def test_init():
     schema.resolv('init', 'sql')
 def test_createTable():
     schema.resolv('build', 'table')
+def test_createTableiLink():
+    schema.resolv('build', 'table-link')
 def test_createFunction():
     schema.resolv('build', 'function')
 def test_createView():
