@@ -2,11 +2,11 @@
 import os
 import sys
 import time
-import containers as c
-import display as ui
+import openPanthera.containers as c
+import openPanthera.display as ui
 import hnyconfig as config
-import schema as s
-import modules as m
+import openPanthera.schema as s
+import openPanthera.modules as m 
 
 config.init('mariadb.conf.json')
 schemas_list = m.read()

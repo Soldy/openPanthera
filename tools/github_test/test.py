@@ -18,5 +18,7 @@ def test_createFunction():
     schema.resolv('build', 'function')
 def test_createView():
     schema.resolv('build', 'view')
+def test_createMigration():
+    schema.resolv('build', 'migration')
 def test_createDestroy():
     schema.resolv('build', 'destroy')
