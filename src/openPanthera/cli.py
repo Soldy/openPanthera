@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os
 import sys
-import commander
+import openPanthera.commander as commander
 
 
 sys.exit(

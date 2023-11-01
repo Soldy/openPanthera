@@ -11,7 +11,7 @@ migration_type_dict = {
     'view'        : '40-view',
     'index'       : '50-index',
     'forein'      : '60-forein',
-    'migratrtion' : '70-migration',
+    'migration'   : '70-migration',
     'seed'        : '80-seed',
     'event'       : '90-event',
     'admin'       : '95-admin',

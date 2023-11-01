@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import commander
+import openPanthera.commander as commander
 
 
 def menu():

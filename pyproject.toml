@@ -1,6 +1,6 @@
 [project]
 name = "openpanthera"
-version= "0.0.14a2"
+version= "0.0.14a3"
 authors = [
   { name="Soldy", email="4786022+Soldy@users.noreply.github.com" },
 ]

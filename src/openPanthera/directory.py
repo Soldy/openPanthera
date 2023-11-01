@@ -33,12 +33,18 @@ class DirectoryClass:
         )
     def _mkdir(self, target:str):
         os.mkdir(self._targetPath(target))
-    def _reader(self, target:str)->list:
+    def _reader(self, target:str)->dict:
         out = {}
         target_dict = c.migration_type_dict[target]
         if self._targetCheck(target_dict) == False:
            return print('Directory '+target+' is missing')
-        for i in os.listdir(self._targetPath(target_dict)):
+        print(target_dict)
+        print(self._targetPath(target_dict))
+        file_list = sorted(os.listdir(self._targetPath(target_dict)))
+        print(file_list[:])
+        if type(file_list) is not list:
+            return {}
+        for i in file_list:
             if self._fileCheck(target_dict, i):
                with open(self._targetPath(target_dict)+i) as f:
                    out[i]=str(f.read())
@@ -72,7 +78,7 @@ class DirectoryClass:
     def reader(self, target:str)->list:
         c.migrationTypeList[target] = self._reader(target)
         return c.migrationTypeList[target]
-    def resolv(self, command)->any:
+    def resolv(self, command:str)->any:
         return self.list[command]()
     def __init__(self, path:str, ui_):
         """ variable defination """
