@@ -69,6 +69,10 @@ class MariaDbClass:
                 self._p(utitle+' "'+str(script)+'" executing')
                 self._cur.execute(scripts[script])
                 if title_ != 'destroy':
+                    self._cleanBuildScript(
+                        title_,
+                        script
+                    )
                     self._insertBuildScript(
                         title_,
                         script,
@@ -82,7 +86,7 @@ class MariaDbClass:
     def build(self, name:str)->int:
         print(name)
         if name == "destroy":
-            self.destroyScript()
+            self._destroyBuildScript()
         return self._buildScript(name)
 
     def initMigrationTable(self)->int:
@@ -115,12 +119,25 @@ class MariaDbClass:
         return False
 
 
-    def destroyScript(self):
+    def _destroyBuildScript(self):
         self._cur.execute(
              "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
              (
                  int( time.time() ),
                  0
+             )
+        )
+        self._conn.commit()
+        return 0
+
+    def _cleanBuildScript(self, type_, file_name_):
+        self._cur.execute(
+             "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ? AND type = ? AND file = ?",
+             (
+                 int( time.time() ),
+                 0,
+                 type_,
+                 file_name_
              )
         )
         self._conn.commit()
