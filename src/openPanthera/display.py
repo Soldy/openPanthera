@@ -19,12 +19,12 @@ def set(active:bool):
 
 def echo(text:str):
     if _active:
-         print(text)
+         print(text+"\033[0m")
 
 def log(text:str):
     _append('log', text)
-    echo(text)
+    echo("\033[38;2;230;255;255m"+text)
 
 def error(text:str):
-    _log.append('error',text)
-    echo(text)
+    _append('error',text)
+    echo("\033[38;2;255;0;0m"+text)
