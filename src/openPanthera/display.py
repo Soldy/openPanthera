@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 from datetime import datetime
 
-_active = True
+global _log_active
+_log_active = True
 _log = []
+
+print(globals())
 
 def _stamp()->int:
     return (datetime.now() - datetime(1970, 1, 1)).total_seconds()
@@ -15,10 +18,12 @@ def _append(type_:str, text:str):
     })
 
 def set(active:bool):
-    _active = active
+    global _log_active
+    _log_active = active
 
 def echo(text:str):
-    if _active:
+    global _log_active
+    if _log_active:
          print(text+"\033[0m")
 
 def log(text:str):
