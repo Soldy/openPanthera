@@ -3,9 +3,9 @@ import openPanthera.commander as commander
 
 
 def menu():
-    print(commander.helpOut())
+    print(commander.help())
     while True:
         command = input(' {OP} >> ')
-        commandResolve(command)
+        commander.resolve(command)
 
 menu()
