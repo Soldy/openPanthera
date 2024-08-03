@@ -18,7 +18,20 @@ migration_type_dict = {
     'destroy'     : 'xx-destroy'
 }
 
+
+clean_build_types = [
+    'destroy',
+    'table',
+    'table-link',
+    'function',
+    'procedure',
+    'view',
+    'forein',
+    'event'
+]
+
 short_types = {
+    'c' : 'clean-build',
     't' : 'table',
     'l' : 'table-link',
     'f' : 'function',

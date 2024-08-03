@@ -23,7 +23,10 @@ def _shortResolve(command:str):
         main = c.short_commands[command[0]]
         if command[1] in _shorters[main].keys():
            sub = _shorters[main][command[1]]
-           return _schema.resolv(main, sub)
+           if sub != 'clean-build':
+               return _schema.resolv(main, sub)
+           for sub_sub in c.clean_build_types:
+               _schema.resolv(main, sub_sub)
 
 def _split(command:str)->list:
     if len(command) > 2:
