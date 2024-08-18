@@ -24,7 +24,8 @@ Panthera has four versions.
 
 # !Security WARNING!
 
-Panthera is safe if you always use the provided layer or correct prepare syntax. Panthera cannot fix Human stupidity. Sorry :(
+Panthera is safe onlY IF you always use the provided layer.
+Panthera cannot fix Human stupidity. Sorry :(
 
 
 ## Install
