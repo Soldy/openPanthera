@@ -15,7 +15,7 @@ jobs:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
     container:
-      image: mariadb:10
+      image: mariadb:11
     services:
       mariadb-master:
         image: mariadb:lts
@@ -25,6 +25,8 @@ jobs:
           MARIADB_ROOT_PASSWORD: test_password
         ports:
           - 3306/tcp
+        ulimits:
+          memlock: "542488"
         options: >-
           --name=mariadb_master
           --health-cmd="mysqladmin ping"
