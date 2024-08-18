@@ -11,7 +11,6 @@ _directory = directory
 _config = {}
 _inited = False
 _conn = ''
-_cur = 'hu'
 
 _table_query = """
 CREATE TABLE IF NOT EXISTS panthera_migration (
@@ -52,6 +51,7 @@ class MariaDbClass:
             sys.exit(1)
         self._conn.autocommit = True
         self._cur = self._conn.cursor()
+
     def _buildScript(self, title_:str)->int:
         scripts = self._directory.reader(title_)
         utitle = title_[0].upper() + title_[1:]
@@ -83,15 +83,22 @@ class MariaDbClass:
                 self._p(utitle+' "'+str(script)+'" already done')
         return 0
 
-    def build(self, name:str)->int:
-        print(name)
+    def build(self, name:str):
         if name == "destroy":
             self._destroyBuildScript()
         return self._buildScript(name)
-
-    def initMigrationTable(self)->int:
+    
+    def show(self, name:str):
+        shows = {
+           'table'     : self._showTables,
+           'view'      : self._showViews,
+           'procedure' : self._showProcedures,
+           'function'  : self._showFunctions
+        }
+        shows[name]()
+     
+    def initMigrationTable(self):
         self._cur.execute(_table_query)
-        return 0
 
     def _insertBuildScript(self, type_:str, file_name_:str, file_:str)->int:
         self._cur.execute(
@@ -104,8 +111,8 @@ class MariaDbClass:
             )
         )
         self._conn.commit() 
-        return 0
-    def checkExitBuildScript(self, type_, file_name_, file_):
+
+    def checkExitBuildScript(self, type_:str, file_name_:str, file_:str)->bool:
         self._cur.execute(
              "SELECT date FROM panthera_migration WHERE type=? AND file=? AND hash=? AND destroyed = 0",
              (
@@ -118,7 +125,6 @@ class MariaDbClass:
             return True
         return False
 
-
     def _destroyBuildScript(self):
         self._cur.execute(
              "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ?",
@@ -128,9 +134,8 @@ class MariaDbClass:
              )
         )
         self._conn.commit()
-        return 0
 
-    def _cleanBuildScript(self, type_, file_name_):
+    def _cleanBuildScript(self, type_:str, file_name_:str):
         self._cur.execute(
              "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ? AND type = ? AND file = ?",
              (
@@ -141,5 +146,70 @@ class MariaDbClass:
              )
         )
         self._conn.commit()
-        return 0
+    
+    def _showProcedures(self):
+        self._cur.execute(
+          "SHOW PROCEDURE STATUS WHERE db = ?",
+          [
+            self._config.get('database')
+          ]
+        )
+        for (
+          Db,
+          Name,
+          Type,
+          Definer,
+          Modified,
+          Created,
+          Security_type,
+          Comment,
+          character_set_client,
+          collation_connection,
+          coll
+        ) in self._cur:
+          self._p(f"{Name}")
+
+
+    def _showFunctions(self):
+        self._cur.execute(
+          "SHOW FUNCTION STATUS WHERE db = ?",
+          [
+            self._config.get('database')
+          ]
+        )
+        for (
+          Db,
+          Name,
+          Type,
+          Definer,
+          Modified,
+          Created,
+          Security_type,
+          Comment,
+          character_set_client,
+          collation_connection,
+          coll
+        ) in self._cur:
+          self._p(f"{Name}")
+
+    def _showViews(self):
+        self._cur.execute(
+          "SHOW FULL TABLES WHERE Table_Type = 'VIEW'"
+        )
+        for (
+          Name,
+          Type
+        ) in self._cur:
+          self._p(f"{Name}")
+
+    def _showTables(self):
+        self._cur.execute(
+          "SHOW FULL TABLES WHERE Table_Type = 'BASE TABLE'"
+        )
+        for (
+          Name,
+          Type
+        ) in self._cur:
+          if Name != "panthera_migration":
+            self._p(f"{Name}")
 

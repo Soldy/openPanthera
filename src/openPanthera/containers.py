@@ -49,7 +49,8 @@ short_types = {
 short_commands = {
     'b' : 'build',
     'd' : 'directory',
-    'm' : 'migrate'
+    'm' : 'migrate',
+    's' : 'show'
 }
 
 short_directory_commands = {
@@ -65,10 +66,18 @@ short_migrate_commands = {
    'b'  : 'backup'
 }
 
+short_show_commands = {
+   'v'  : 'view',
+   't'  : 'table',
+   'p'  : 'procedure' ,
+   'f'  : 'function'
+}
+
 short_specific_commands = {
    'directory' : short_directory_commands,
    'build'     : short_types,
-   'migrate'   : short_migrate_commands
+   'migrate'   : short_migrate_commands,
+   'show'      : short_show_commands
 }
 
 migrationTypeList = {

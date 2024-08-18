@@ -5,7 +5,6 @@ global _log_active
 _log_active = True
 _log = []
 
-print(globals())
 
 def _stamp()->int:
     return (datetime.now() - datetime(1970, 1, 1)).total_seconds()
