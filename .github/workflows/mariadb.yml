@@ -18,15 +18,13 @@ jobs:
       image: mariadb:11
     services:
       mariadb-master:
-        image: mariadb:lts
+        image: mariadb:11.4
         env:
           MARIADB_USER: test_user
           MARIADB_PASSWORD: test_password
           MARIADB_ROOT_PASSWORD: test_password
         ports:
           - 3306/tcp
-        ulimits:
-          memlock: "542488"
         options: >-
           --name=mariadb_master
           --health-cmd="mysqladmin ping"
