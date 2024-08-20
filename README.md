@@ -2,39 +2,30 @@
 
 ## About
 
-Open Panthera is an SQL builder and migration tool. \
-Panthera is not new. Not a revolution. \
-That solution is popular in banks and mission-critical systems. But most of the similar tools are the close source. \
-The primary logic is simple: The outside client only calls the inbuild functions and procedures. So the system SQL injection prof and easily portable to other technologies. \
-The benefits:
-   1. Can be safe like an ORM.
-   2. Unlike an ORM not stacked with one programing language.
-   3. Panthera logic has some performance benefits as well.
+In Short: Open Panthera is an SQL builder and migration tool. \
+Open Panthera is a straightforward solution for enforcing data management on SQL, making it easier for different systems to access the same data collections. \
+The primary logic is simple outside the database only calls the inbuild functions and procedures. So the system SQL injection prof and easily portable to other technologies. \
 
 
-
-Panthera has four versions.
-   1. Open Panthera is an easy-to-use open-source implementation built in python. Almost ready to use.
-   2. Noname Panthera a nodejs implementation. (Working in Progress)
-   3. PHP Panthera.
-   4. Sweet Panthera is a closed-source implementation. Fully operational.
-
-
+Panthera has four versions. \
+   1. Open Panthera is an easy-to-use open-source implementation built in python. (Alpha state)
+   2. Noname Panthera a nodejs/deno/bun implementation. (Working in Progress)
+   3. PHP Panthera. (Alpha state)
+   4. Sweet Panthera is a closed-source rust implementation. (stable)
 
 
 # Why use Panthera?
 
-Panthera is a straightforward solution for enforcing data management on SQL, making it easier for different systems to access the same data collections.
-When using Panthera, the correct approach involves limiting the backend software access to direct database queries. That forces the developers to call a function or a procedure, ensuring safer data management.
-Panthera is optimal for Test-Driven Development (TDD).
+When using Panthera, the correct approach involves limiting the backend software access to direct database queries. \
+That forces the developers to call a function or a procedure, ensuring safer data management. \
+Panthera is optimal for Test-Driven Development (TDD). \
+Panthera logic has performance benefits. \
 
 
 # Why not use Panthera? 
 
-However, using Panthera requires significant additional development time and is not suitable for Domain-Driven Design (DDD) development.
+Using Panthera requires significant additional development time and is not suitable for Domain-Driven Design (DDD) development.
 The benefits of Panthera for Continuous Integration (CI) development are also questionable.
-
-
 
 
 # Instructions
