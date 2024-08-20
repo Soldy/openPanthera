@@ -22,6 +22,21 @@ Panthera has four versions.
 
 
 
+# Why use Panthera?
+
+Panthera is a straightforward solution for enforcing data management on SQL, making it easier for different systems to access the same data collections.
+When using Panthera, the correct approach involves limiting the backend software access to direct database queries. That forces the developers to call a function or a procedure, ensuring safer data management.
+Panthera is optimal for Test-Driven Development (TDD).
+
+
+# Why not use Panthera? 
+
+However, using Panthera requires significant additional development time and is not suitable for Domain-Driven Design (DDD) development.
+The benefits of Panthera for Continuous Integration (CI) development are also questionable.
+
+
+
+
 # !Security WARNING!
 
 Panthera is safe onlY IF you always use the provided layer.
@@ -39,5 +54,13 @@ pip3 install openPanthera
 ## Usage
 
 ```
-python3 menu.py
+python3 -m openPanthera.menu
 ```
+
+
+# My note.
+
+The main reason the Panthera exists is my AI addiction. My latest AI project tries to do something almost impossible. Build a system that gives the result on a Raspberry Pi 5 that other systems provide on a large Nvidia cluster. For that goal, the data is the key.  More data in smaller places is the key to better results. 
+
+
+
