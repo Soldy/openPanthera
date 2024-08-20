@@ -4,10 +4,10 @@
 
 In Short: Open Panthera is an SQL builder and migration tool. \
 Open Panthera is a straightforward solution for enforcing data management on SQL, making it easier for different systems to access the same data collections. \
-The primary logic is simple outside the database only calls the inbuild functions and procedures. So the system SQL injection prof and easily portable to other technologies. \
+The primary logic is simple outside the database only calls the inbuild functions and procedures. So the system SQL injection prof and easily portable to other technologies.
 
 
-Panthera has four versions. \
+Panthera has four versions. 
    1. Open Panthera is an easy-to-use open-source implementation built in python. (Alpha state)
    2. Noname Panthera a nodejs/deno/bun implementation. (Working in Progress)
    3. PHP Panthera. (Alpha state)
