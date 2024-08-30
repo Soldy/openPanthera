@@ -153,11 +153,10 @@ class MariaDbClass:
              )
         )
         self._conn.commit()
-    
-    def _listProcedures(self):
+    def _showStatus(self, type_:str):
         lista = []
         self._cur.execute(
-          "SHOW PROCEDURE STATUS WHERE db = ?",
+          "SHOW "+type_+" STATUS WHERE db = ?",
           [
             self._config.get('database')
           ]
@@ -177,61 +176,32 @@ class MariaDbClass:
         ) in self._cur:
           lista.append(Name)
         return lista
+    def _dropIfExists(self, type_:str, name_:str):
+        self._cur.execute(
+          "DROP "+type_+" `"+name_+"`;"
+        )
+        self._p("Delete "+type_+" "+name_)
+        self._conn.commit()
     def _showProcedures(self):
         for (
           Name
-        ) in self._listProcedures():
+        ) in self._showStatus("PROCEDURE"):
           self._p(f"{Name}")
-    def _deleteProcedure(self, procedure:str):
-        self._cur.execute(
-          f"DROP PROCEDURE `{procedure}`;"
-        )
-        self._p(f"Delete procedure {procedure}")
-        self._conn.commit()
     def _deleteAllProcedures(self):
         for (
           Name
-        ) in self._listProcedures():
-            self._deleteProcedure(Name)
-    def _listFunctions(self):
-        lista = []
-        self._cur.execute(
-          "SHOW FUNCTION STATUS WHERE db = ?",
-          [
-            self._config.get('database')
-          ]
-        )
-        for (
-          Db,
-          Name,
-          Type,
-          Definer,
-          Modified,
-          Created,
-          Security_type,
-          Comment,
-          character_set_client,
-          collation_connection,
-          coll
-        ) in self._cur:
-          lista.append(Name)
-        return lista
+        ) in self._showStatus("PROCEDURE"):
+            self._dropIfExists("PROCEDURE", Name)
     def _showFunctions(self):
         for (
           Name
-        ) in self._listFunctions():
+        ) in self._showStatus("FUNCTION"):
           self._p(f"{Name}")
-    def _deleteFunction(self, function:str):
-        self._cur.execute(
-          f"DROP FUNCTION `{function}`;"
-        )
-        self._p(f"Delete function {function}")
-        self._conn.commit()
     def _deleteAllFunctions(self):
         for (
           Name
-        ) in self._listFunctions():
-            self._deleteFunction(Name)
+        ) in self._showStatus("FUNCTION"):
+            self._dropIfExists("FUNCTION", Name)
     def _listViews(self):
         lista = []
         self._cur.execute(
@@ -248,17 +218,11 @@ class MariaDbClass:
           Name
         ) in self._listViews():
           self._p(f"{Name}")
-    def _deleteView(self, table:str):
-        self._cur.execute(
-          f"DROP VIEW IF EXISTS `{table}`;",
-        )
-        self._p(f"Delete table {table}")
-        self._conn.commit()
     def _deleteAllViews(self):
         for (
           Name
         ) in self._listViews():
-            self._deleteView(Name)
+            self._dropIfExists("VIEW", Name)
     def _listTables(self):
         lista = []
         self._cur.execute(
@@ -276,15 +240,10 @@ class MariaDbClass:
           Name
         ) in self._listTables():
             self._p(f"{Name}")
-    def _deleteTable(self, table:str):
-        self._cur.execute(
-          f"DROP TABLES IF EXISTS `{table}`;",
-        )
-        self._p(f"Delete table {table}")
-        self._conn.commit()
     def _deleteAllTables(self):
         for (
           Name
         ) in self._listTables():
-            self._deleteTable(Name)
+            self._p(f"{Name}")
+            self._dropIfExists("TABLES", Name)
 
