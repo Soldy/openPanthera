@@ -96,7 +96,14 @@ class MariaDbClass:
            'function'  : self._showFunctions
         }
         shows[name]()
-     
+    def clean(self, name:str):
+        cleans = {
+           'function'  : self._deleteAllFunctions,
+           'procedure'  : self._deleteAllProcedures,
+           'table'     : self._deleteAllTables,
+           'view'      : self._deleteAllViews
+        }
+        cleans[name]()
     def initMigrationTable(self):
         self._cur.execute(_table_query)
 
@@ -147,7 +154,8 @@ class MariaDbClass:
         )
         self._conn.commit()
     
-    def _showProcedures(self):
+    def _listProcedures(self):
+        lista = []
         self._cur.execute(
           "SHOW PROCEDURE STATUS WHERE db = ?",
           [
@@ -167,10 +175,26 @@ class MariaDbClass:
           collation_connection,
           coll
         ) in self._cur:
+          lista.append(Name)
+        return lista
+    def _showProcedures(self):
+        for (
+          Name
+        ) in self._listProcedures():
           self._p(f"{Name}")
-
-
-    def _showFunctions(self):
+    def _deleteProcedure(self, procedure:str):
+        self._cur.execute(
+          f"DROP PROCEDURE `{procedure}`;"
+        )
+        self._p(f"Delete procedure {procedure}")
+        self._conn.commit()
+    def _deleteAllProcedures(self):
+        for (
+          Name
+        ) in self._listProcedures():
+            self._deleteProcedure(Name)
+    def _listFunctions(self):
+        lista = []
         self._cur.execute(
           "SHOW FUNCTION STATUS WHERE db = ?",
           [
@@ -190,9 +214,26 @@ class MariaDbClass:
           collation_connection,
           coll
         ) in self._cur:
+          lista.append(Name)
+        return lista
+    def _showFunctions(self):
+        for (
+          Name
+        ) in self._listFunctions():
           self._p(f"{Name}")
-
-    def _showViews(self):
+    def _deleteFunction(self, function:str):
+        self._cur.execute(
+          f"DROP FUNCTION `{function}`;"
+        )
+        self._p(f"Delete function {function}")
+        self._conn.commit()
+    def _deleteAllFunctions(self):
+        for (
+          Name
+        ) in self._listFunctions():
+            self._deleteFunction(Name)
+    def _listViews(self):
+        lista = []
         self._cur.execute(
           "SHOW FULL TABLES WHERE Table_Type = 'VIEW'"
         )
@@ -200,9 +241,26 @@ class MariaDbClass:
           Name,
           Type
         ) in self._cur:
+          lista.append(Name)
+        return lista
+    def _showViews(self):
+        for (
+          Name
+        ) in self._listViews():
           self._p(f"{Name}")
-
-    def _showTables(self):
+    def _deleteView(self, table:str):
+        self._cur.execute(
+          f"DROP VIEW IF EXISTS `{table}`;",
+        )
+        self._p(f"Delete table {table}")
+        self._conn.commit()
+    def _deleteAllViews(self):
+        for (
+          Name
+        ) in self._listViews():
+            self._deleteView(Name)
+    def _listTables(self):
+        lista = []
         self._cur.execute(
           "SHOW FULL TABLES WHERE Table_Type = 'BASE TABLE'"
         )
@@ -211,5 +269,22 @@ class MariaDbClass:
           Type
         ) in self._cur:
           if Name != "panthera_migration":
+            lista.append(Name)
+        return lista
+    def _showTables(self):
+        for (
+          Name
+        ) in self._listTables():
             self._p(f"{Name}")
+    def _deleteTable(self, table:str):
+        self._cur.execute(
+          f"DROP TABLES IF EXISTS `{table}`;",
+        )
+        self._p(f"Delete table {table}")
+        self._conn.commit()
+    def _deleteAllTables(self):
+        for (
+          Name
+        ) in self._listTables():
+            self._deleteTable(Name)
 

@@ -30,6 +30,7 @@ class VirtualSchema:
             'migrate'  : self._migrate.resolv,
             'init'     : self._init,
             'build'    : self._mariadb.build,
+            'clean'    : self._mariadb.clean,
             'directory': self._directory.resolv,
             'show'     : self._mariadb.show
         }

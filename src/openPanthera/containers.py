@@ -48,9 +48,17 @@ short_types = {
 
 short_commands = {
     'b' : 'build',
+    'c' : 'clean',
     'd' : 'directory',
     'm' : 'migrate',
     's' : 'show'
+}
+
+short_clean_commands = {
+    'f' : 'function',
+    'p' : 'procedure',
+    't' : 'table',
+    'v' : 'view'
 }
 
 short_directory_commands = {
@@ -75,6 +83,7 @@ short_show_commands = {
 
 short_specific_commands = {
    'directory' : short_directory_commands,
+   'clean'     : short_clean_commands,
    'build'     : short_types,
    'migrate'   : short_migrate_commands,
    'show'      : short_show_commands
