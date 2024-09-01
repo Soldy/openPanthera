@@ -102,7 +102,8 @@ Every destroy function belongs to that module.
 This is a data migration module has two functions backup and restore.
 
 
-##Types. 
+## Types. 
+
 In our system, there are 20 different types. Among them, there are 12 script types, and 8 virtual types.
 Some types are combinations of different categories, while others can represent multiple types from various modules,
 not just their parent module. Additionally, there are virtual types that may not be fully related to their function or only partially related to it.
