@@ -6,7 +6,6 @@ In Short: Open Panthera is an SQL builder and migration tool. \
 Open Panthera is a straightforward solution for enforcing data management on SQL, making it easier for different systems to access the same data collections. \
 The primary logic is simple outside the database only calls the inbuild functions and procedures. So the system SQL injection prof and easily portable to other technologies.
 
-
 Panthera has four versions. 
    1. Open Panthera is an easy-to-use open-source implementation built in python. (Alpha state)
    2. Noname Panthera a nodejs/deno/bun implementation. (Working in Progress)
@@ -29,9 +28,6 @@ Panthera logic has performance benefits. \
   1. For fast, rapid development alternative solutions like ORM, graphql, or Flatdb are far better than Panthera. 
   1. It is not suitable for Domain-Driven Design (DDD) development, and the benefits of Panthera for Continuous Integration (CI) development are questionable.
   1. In my view, this system has no benefit on most SAAP solutions. 
-
-
-
 
 Using Panthera requires significant additional development time and is not suitable for Domain-Driven Design (DDD) development.
 The benefits of Panthera for Continuous Integration (CI) development are also questionable.
@@ -65,6 +61,7 @@ It's important to note that Panthera does not manage the server itself; that nee
 The open Panthera has two control interfaces: 
    1. the command line interface ``` python3 -m openPanthera.cli ``` 
    1. the menu interface. ```python3 -m openPanthera.menu``` .
+
 Both interfaces have the same commands.
 The Panthera interface is a simple command interface, but this may change in the future.
 If it does change, the menu should be renamed to "com," and a real menu interface will be implemented. 
@@ -89,18 +86,14 @@ All directory tree-related commands belong to this module.
 Build command. This runs the build scripts. However, some build functions execute functions that belong to different modules. 
 For example bc. Call a destroy before building everything again.
 
-
 ### x
 
 This is a destructive module. 
 Every destroy function belongs to that module.
 
-
-
 ### migration or m 
 
 This is a data migration module has two functions backup and restore.
-
 
 ## Types. 
 
