@@ -144,15 +144,36 @@ class MariaDbClass:
 
     def _cleanBuildScript(self, type_:str, file_name_:str):
         self._cur.execute(
-             "UPDATE panthera_migration SET destroyed = ? WHERE destroyed = ? AND type = ? AND file = ?",
-             (
-                 int( time.time() ),
-                 0,
-                 type_,
-                 file_name_
-             )
+          (
+             "UPDATE panthera_migration "+
+             "SET destroyed = ? WHERE "+
+             "destroyed = ? AND type = ? AND file = ?"
+          ),(
+             int( time.time() ),
+             0,
+             type_,
+             file_name_
+          )
         )
         self._conn.commit()
+    def _foreignDisable(self):
+      try:
+        self._cur.execute(
+          "SET GLOBAL FOREIGN_KEY_CHECKS=0;"
+        )
+        self._conn.commit()
+        self._p("Foreign check disabled")
+      except Exception:
+        self._p("Foreign check cannot disabled")
+    def _foreignEnable(self):
+      try:
+        self._cur.execute(
+          "SET GLOBAL FOREIGN_KEY_CHECKS=1;"
+        )
+        self._conn.commit()
+        self._p("Foreign check enabled")
+      except Exception:
+        self._p("Foreign check cannot enabled")
     def _showStatus(self, type_:str):
         lista = []
         self._cur.execute(
@@ -177,11 +198,13 @@ class MariaDbClass:
           lista.append(Name)
         return lista
     def _dropIfExists(self, type_:str, name_:str):
+        self._foreignDisable()
         self._cur.execute(
           "DROP "+type_+" `"+name_+"`;"
         )
         self._p("Delete "+type_+" "+name_)
         self._conn.commit()
+        self._foreignEnable()
     def _showProcedures(self):
         for (
           Name
@@ -236,10 +259,25 @@ class MariaDbClass:
             lista.append(Name)
         return lista
     def _showTables(self):
-        for (
-          Name
-        ) in self._listTables():
-            self._p(f"{Name}")
+      for (
+        Name
+      ) in self._listTables():
+        self._p(f"{Name}")
+#   def _jsonTable(self, name_:str):
+#     lista = []
+#     self._cur.execute(
+#       "DESC "+name_
+#     )
+#     for (
+#       Field,
+#       Type,
+#       Null,
+#       Key,
+#       Default,
+#       Extra
+#     ) in self._listTables():
+#       self._p(f"{Name}")
+#       self._dropIfExists("TABLES", Name)
     def _deleteAllTables(self):
         for (
           Name
