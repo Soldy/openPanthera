@@ -24,6 +24,15 @@ Panthera logic has performance benefits. \
 
 # Why not use Panthera? 
 
+  1. Panthera is designed for simplifying the management of complex data schemas, not the schema. If you want to simplify the schema, Panthera is not what you are looking for.
+  1. Using Panthera requires significant additional development time. 
+  1. For fast, rapid development alternative solutions like ORM, graphql, or Flatdb are far better than Panthera. 
+  1. It is not suitable for Domain-Driven Design (DDD) development, and the benefits of Panthera for Continuous Integration (CI) development are questionable.
+  1. In my view, this system has no benefit on most SAAP solutions. 
+
+
+
+
 Using Panthera requires significant additional development time and is not suitable for Domain-Driven Design (DDD) development.
 The benefits of Panthera for Continuous Integration (CI) development are also questionable.
 
@@ -89,7 +98,11 @@ This is a data migration module has two functions backup and restore.
 
 # My note.
 
-The main reason the Panthera exists is my AI addiction. My latest AI project tries to do something almost impossible. Build a system that gives the result on a Raspberry Pi 5 that other systems provide on a large Nvidia cluster. For that goal, the data is the key.  More data in smaller places is the key to better results. 
+The main reason the Panthera exists is my AI addiction. My latest AI project tries to do something almost impossible. Build a system that gives the result on a Raspberry Pi 5 that other systems provide on a large Nvidia cluster. For that goal, the data is the key.  More data in smaller places is the key to better results. \
+Panthera helped me shrink the IMDB database to 40 megabytes and the en wiki to less than 500 megabytes without negatively affecting performance, keeping the data still easily readable. In fact, it positively affected performance; I was able to reduce the response time to under 20 ms with the Wikipedia data collection. It's important to note that I am storing meaning, not just texts. This way, I am storing almost the same data in the SQL that I am using for machine learning. \
+Because of my limited time, I have codes in ADA, Rust, C++, Python, PHP, and Javascript that I do not want to rewrite because of the time. But I use the same database. It's a solution to manage the database in one and provide an API. But with the API the single server has to be available every time. For example, if I build a php layer Apache always has to be there over the SQL master to slave replicas in the middle to serve the API.
+Extra note : In my view, this system has no benefit on most SAAP solutions. 
+For fast, rapid development alternative solutions like ORM, graphql, or Flatdb are far better than Panthera. 
 
 
 
