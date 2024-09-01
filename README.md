@@ -53,47 +53,114 @@ pip3 install openPanthera
 python3 -m openPanthera.menu
 ```
 
+## How does it work? 
 
-# Controll and comands.
-
-
-The open Panthera has two control interfaces.
-Command line interface ``` python3 -m openPanthera.cli ``` , and menu interface ```python3 -m openPanthera.menu``` .
-Both interface has the same commands. 
-Every command is built from two words. 
-Module and function. Every command has a shorter method. The short method is two characters.  
-
-# Modules
+The Panthera currently has 12 different directories, each represent one type of SQL scripts.
+These scripts and migrations are accessed or controlled through the menu and the CLI interface using commands.
+It's important to note that Panthera does not manage the server itself; that needs to be done separately.
 
 
-## show or s.
+## Controll and comands.
+
+The open Panthera has two control interfaces: 
+   1. the command line interface ``` python3 -m openPanthera.cli ``` 
+   1. the menu interface. ```python3 -m openPanthera.menu``` .
+Both interfaces have the same commands.
+The Panthera interface is a simple command interface, but this may change in the future.
+If it does change, the menu should be renamed to "com," and a real menu interface will be implemented. 
+Every command consists of two words: the module and the type. Additionally, every command has a shorter method, which is represented by two characters.
+
+## Modules
+
+
+### show or s.
 
 Show system or database information. 
 
 
-## directory or d.
+### directory or d.
 
 All directory tree-related commands belong to this module.
 
 
-## build or b.
+### build or b.
 
 
 Build command. This runs the build scripts. However, some build functions execute functions that belong to different modules. 
 For example bc. Call a destroy before building everything again.
 
 
-## x
+### x
 
 This is a destructive module. 
 Every destroy function belongs to that module.
 
 
 
-## migration or m 
+### migration or m 
 
 This is a data migration module has two functions backup and restore.
 
+
+##Types. 
+In our system, there are 20 different types. Among them, there are 12 script types, and 8 virtual types.
+Some types are combinations of different categories, while others can represent multiple types from various modules,
+not just their parent module. Additionally, there are virtual types that may not be fully related to their function or only partially related to it.
+
+
+### table or t
+
+Represent the ```10-table``` directory. Storing the main tables definition. At the moment the openPantera only supports build.
+
+
+### link or l
+
+Represent the ```15-table-link``` directory. Storing the link tables, most of the time many too many connection representations. At the moment the openPantera only supports build.
+
+
+### function or f
+
+Represent the ```20-function``` directory. Storing the definition of the functions. Panthera only lets you access stored functions and procedures. At the moment the openPantera only supports build. But in the j module implementation is planned.
+
+
+### procedure or p
+
+Represent the ```30-procedure``` directory. Storing the procedure of the definitions. Panthera only lets you access stored functions and procedures. At the moment the openPantera only supports build. But in the j module implementation is planned.
+
+
+### view or v
+
+Represent the ```40-view``` directory. Storing the view of the definitions. It's a good practice to build view tables for the foreign keys. That way they can call in multiple functions and procedures with less pain. Do not forget the Panthera is designed for TDD so the test has to be in place or that makes the system too fragile. At the moment the openPantera only supports build. But in the j module implementation is planned.
+
+
+### index or i
+
+Represent the ```50-index``` directory. Not supported in openPanthera at the moment.
+
+
+### foreign or f
+
+Represent the ```60-foreign``` directory. Storing the foreign key definitions.  At the moment the openPantera only supports build. The j module support never be implemented in the openPanthera, because increase the chance of human error.
+
+
+### migration
+
+Represent the ```70-migration``` directory. Migration support scripts. Not supported in openPanthera at the moment.
+
+
+### seed or s
+
+Represent the ```80-seed``` directory. Not supported in openPanthera at the moment.
+
+
+### event or e
+
+Represent the ```90-event``` directory. Not supported in openPanthera at the moment.
+
+
+### init or i
+
+This triggers the initializations. Initializing the Panthera basic table or the directory trees.
 
 
 # My note.
