@@ -24,13 +24,10 @@ Panthera logic has performance benefits. \
 # Why not use Panthera? 
 
   1. Panthera is designed for simplifying the management of complex data schemas, not the schema. If you want to simplify the schema, Panthera is not what you are looking for.
-  1. Using Panthera requires significant additional development time. 
-  1. For fast, rapid development alternative solutions like ORM, graphql, or Flatdb are far better than Panthera. 
+  1. Using Panthera requires significant additional development time. For fast, rapid development alternative solutions like ORM, graphql, or Flatdb are far better than Panthera. 
   1. It is not suitable for Domain-Driven Design (DDD) development, and the benefits of Panthera for Continuous Integration (CI) development are questionable.
   1. In my view, this system has no benefit on most SAAP solutions. 
 
-Using Panthera requires significant additional development time and is not suitable for Domain-Driven Design (DDD) development.
-The benefits of Panthera for Continuous Integration (CI) development are also questionable.
 
 
 # Instructions
