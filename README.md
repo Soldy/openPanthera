@@ -18,7 +18,7 @@ Panthera has four versions.
 When using Panthera, the correct approach involves limiting the backend software access to direct database queries. \
 That forces the developers to call a function or a procedure, ensuring safer data management. \
 Panthera is optimal for Test-Driven Development (TDD). \
-Panthera logic has performance benefits. \
+Panthera logic has performance benefits.
 
 
 # Why not use Panthera? 
