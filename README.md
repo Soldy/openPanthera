@@ -154,6 +154,44 @@ Represent the ```90-event``` directory. Not supported in openPanthera at the mom
 This triggers the initializations. Initializing the Panthera basic table or the directory trees.
 
 
+## Panthera Variables
+The variable describes the purpose of the Panthera modules and files. It can be used as an annotation and as an API variable. The API response for the files always includes the result along with the annotation.
+
+
+### pgroup
+Refers to the Panthera directory group.  
+
+### pfile
+The file name without its extension. This is optional in the annotation.  
+
+### pdata
+Represents the file data, which is optional and used in both the API request and response. However, this variable cannot be included in the annotation for obvious reasons.
+
+### ptable
+The name of the affected table. Both functions and production processes can affect more than one table, while links always affect two tables.  
+
+### pcol
+Table colunms that affected.
+
+### pfunction
+Within the function group, this includes all function names used by the other functions.  
+
+### pprocedure
+In the procedure group, the first procedure listed is the target procedure, while all others are the procedures that are used.  
+
+### ptype
+Indicates the type or goal of the function.  
+
+### pinput
+The input variables, which are the function arguments and procedure arguments.  
+
+### preturn
+The data that is returned.  
+
+### pdesc
+A description of the required function, provided in Esperanto, English, or Hungarian. Please note that the system translates everything into Esperanto, so providing the best results in that language is recommended.
+
+
 # My note.
 
 The main reason the Panthera exists is my AI addiction. My latest AI project tries to do something almost impossible. Build a system that gives the result on a Raspberry Pi 5 that other systems provide on a large Nvidia cluster. For that goal, the data is the key.  More data in smaller places is the key to better results. \
