@@ -212,9 +212,6 @@ It's important to note that "string" is a special type. The AI must determine wh
 The main reason the Panthera exists is my AI addiction. My latest AI project tries to do something almost impossible. Build a system that gives the result on a Raspberry Pi 5 that other systems provide on a large Nvidia cluster. For that goal, the data is the key.  More data in smaller places is the key to better results. \
 Panthera helped me shrink the IMDB database to 40 megabytes and the en wiki to less than 500 megabytes without negatively affecting performance, keeping the data still easily readable. In fact, it positively affected performance; I was able to reduce the response time to under 20 ms with the Wikipedia data collection. It's important to note that I am storing meaning, not just texts. This way, I am storing almost the same data in the SQL that I am using for machine learning. \
 I have codes in ADA, Rust, C++, Python, PHP, and Javascript that I do not want to rewrite because of my limited time. But I use the same database in all.
-Extra note : In my view, this system has no benefit on most SAAP solutions.
-For fast, rapid development alternative solutions like ORM, graphql, or Flatdb are far better than Panthera.
-
 
 
 # !Security WARNING!
