@@ -10,15 +10,15 @@ env:
 on: [push]
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     container:
-      image: mariadb:10.11
+      image: mariadb:10
     services:
       mariadb-master:
-        image: mariadb:10.11
+        image: mariadb:lts
         env:
           MARIADB_USER: test_user
           MARIADB_PASSWORD: test_password
