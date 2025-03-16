@@ -170,8 +170,17 @@ Represents the file data, which is optional and used in both the API request and
 ### ptable
 The name of the affected table. Both functions and production processes can affect more than one table, while links always affect two tables.  
 
+### pdeep or pforeign
+Represents the foreign keys.
+```
+@pdeep {table} column - comment
+```
+
 ### pcol
 Table colunms that affected.
+```
+@pcol {type} column - comment 
+```
 
 ### pfunction
 Within the function group, this includes all function names used by the other functions.  
@@ -191,6 +200,12 @@ The data that is returned.
 ### pdesc
 A description of the required function, provided in Esperanto, English, or Hungarian. Please note that the system translates everything into Esperanto, so providing the best results in that language is recommended.
 
+
+#types
+
+The Panthera and AXP systems utilize a straightforward type system that accepts fundamental types from C, [C++](https://en.cppreference.com/w/cpp/language/types), (Python)[https://docs.python.org/3/library/stdtypes.html], and [MySQL](https://dev.mysql.com/doc/refman/8.4/en/data-types.html). However, some types are exclusively compatible with the AI extension. These exclusive types include: string, str, auto, any, vector, map, array, list, and dict.
+Any type that is clearly defined in SQL standards or has a direct equivalent can be used without issue. 
+It's important to note that "string" is a special type. The AI must determine whether the final type should be varchar, char, or blob. If the extension is not used, an error will occur instead.
 
 # My note.
 
