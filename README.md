@@ -203,7 +203,7 @@ A description of the required function, provided in Esperanto, English, or Hunga
 
 #types
 
-The Panthera and AXP systems utilize a straightforward type system that accepts fundamental types from C, [C++](https://en.cppreference.com/w/cpp/language/types), (Python)[https://docs.python.org/3/library/stdtypes.html], and [MySQL](https://dev.mysql.com/doc/refman/8.4/en/data-types.html). However, some types are exclusively compatible with the AI extension. These exclusive types include: string, str, auto, any, vector, map, array, list, and dict.
+The Panthera and AXP systems utilize a straightforward type system that accepts fundamental types from C, [C++](https://en.cppreference.com/w/cpp/language/types), [Python](https://docs.python.org/3/library/stdtypes.html), and [MySQL](https://dev.mysql.com/doc/refman/8.4/en/data-types.html). However, some types are exclusively compatible with the AI extension. These exclusive types include: string, str, auto, any, vector, map, array, list, and dict.
 Any type that is clearly defined in SQL standards or has a direct equivalent can be used without issue. 
 It's important to note that "string" is a special type. The AI must determine whether the final type should be varchar, char, or blob. If the extension is not used, an error will occur instead.
 
