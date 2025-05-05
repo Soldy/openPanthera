@@ -1,8 +1,13 @@
 #!/usr/bin/python3
-import openPanthera.commander as commander
-
+"""
+cli menu
+"""
+from openPanthera import commander
 
 def menu():
+    """
+    menu fuction
+    """
     print(commander.help())
     while True:
         command = input(' {OP} >> ')
