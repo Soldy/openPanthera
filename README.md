@@ -2,7 +2,7 @@
 
 ## Future Note
 
-The original version of openPanthera was a complete rewrite of the previous sweet panthera, which made it impossible to adhere to PEP 8 guidelines. However, we aim to change this in the future. The next release will focus on two key improvements: full compliance with PEP 8 standards and complete support for AXPN.
+The original version of openPanthera was a complete rewrite of the previous sweet panthera, which made it impossible to follow the PEP8 guidelines. However, we aim to change this in the future. The next release will focus on two key improvements: full compliance with PEP8 standards and complete support for AXPN.
 
 ## About
 
